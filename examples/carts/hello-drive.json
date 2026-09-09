@@ -1,0 +1,6 @@
+{
+  "name": "hello-drive",
+  "nodes": [
+    { "id": "n1", "prompt": "Reply with one Bisaya word for let's go, then stop." }
+  ]
+}
