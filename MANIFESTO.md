@@ -1,43 +1,43 @@
 # Manifesto
 
-LARGA is infrastructure for student agency. The phone is the terminal. Cloudflare is the computer. Identity is the student’s own account.
+Larga is how a student in Cebu (and then any Flag) keeps their own AI computer — **AiCloud** — and runs agents from a phone.
 
-## Cast off
+The phone is the remote. AiCloud is the machine. Your login is yours.
 
-*Larga na* — leave the dock. The runtime does not assign modules, agent swarms, or a blessed task list. GRID starts blank. DRIVE stays mute except for hops. DEX records what actually ran.
+## Larga na
 
-Examples live in `/examples`. Copy them. Or don’t.
+Cebuano: let’s go, pull out, cast off. Grid starts empty so you can chain whatever you want. Drive hops between free AI brains. Your **Profile** writes down what ran, so the tape is honest.
 
-## Names
+Optional carts live in `/examples`. Steal them.
+
+## Words we use
 
 | Word | Means |
 |---|---|
-| LARGA | Go / set sail / release into the match (Cebuano). Not *espada larga*. |
-| GRID | The canvas. |
-| DRIVE | The router. |
-| DEX | The ledger and the living profile. |
-| Pilot | Student. |
+| Larga | The product. Let’s go. |
+| AiCloud | Your free AI computer in the sky (one deploy). |
+| Grid | Where you chain agents. |
+| Drive | The AI that hops when a brain is busy or broke. |
+| Profile | Your Pilot page: handle, pet, GitHub, Cursor, facts. |
+| Board | Live ranking. Pets move when Drive is working. |
+| Tape | The one file that is resume + case study + cover letter. |
+| Pilot | You. |
 | Crew | School (later). |
 | Flag | Country (later). |
-| Dock | Tenant / school MOA berth. Not shipped. |
-| Tape | Signed certify export. The CV. |
-| Kettle | Sponsor token pot. Same rules for every Pilot. Not a rank multiplier. |
-| Pet | Optional companion (Petdex pack or homemade family). |
+| Dock | School OJT berth (later). |
+| Kettle | Sponsor AI juice everyone can sip. |
+| Pet | Optional companion. |
 
 ## The tape
 
-GitHub (opt-in public API), Cursor (opt-in URL), Drive usage, Grid graphs, and facts Dex already stored. One `user_id`. Handle is a costume. Companies open `/u/{handle}/tape`.
+GitHub and Cursor if you link them. Drive hops and token counts. Grid graphs. Facts already on your Profile. One forever id. Handle is the nickname you show off. Companies open `/u/{handle}/tape`.
 
-If a lesson-clicker outranks a Pilot who shipped wild graphs, we broke the product.
+Pilots who ship weird Grid graphs sit at the top. That’s the Cup.
 
 ## Pets
 
-Fun. Optional. Import [Petdex](https://petdex.dev) format, draw a family, or run bald. The live board only moves a pet when that Pilot’s Drive is in flight.
+Bring a [Petdex](https://petdex.dev) pack, draw a family, or skip it. The Board only animates while your Drive is actually running.
 
-## Money
+## Season
 
-Sponsors buy **eyes, berths, and a public kettle**. They do not buy a quota multiplier for whoever is already first.
-
-## Origin
-
-Season 0 is the Cebu Cup. The kit is for any Flag that deploys it.
+**Cebu AI Agent Cup** is season 0. Other Flags can run the same kit.

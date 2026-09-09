@@ -71,17 +71,17 @@ export class GraphRoom implements DurableObject {
 
 function ui(driveSet: boolean): string {
   return page(
-    "LARGA Grid",
+    "Larga Grid",
     `
 <header class="brand wrap" style="max-width:none">
   <h1>Grid</h1>
-  <span>mobile canvas</span>
+  <span>chain AI here</span>
 </header>
 <div class="wrap">
-  <p class="tag">Blank on purpose. Add nodes. Fire Drive. No quests.</p>
-  <p class="meta">Drive ${driveSet ? "wired" : "not set — wrangler var DRIVE_URL"}</p>
+  <p class="tag">Add a node. Type a prompt. Run. Your pet on the Board moves while Drive is working.</p>
+  <p class="meta">Drive ${driveSet ? "ready" : "still waking up"}</p>
   <div class="row">
-    <input id="uid" placeholder="user id (from Dex cookie)" style="flex:1">
+    <input id="uid" placeholder="your Larga id (Profile page)" style="flex:1">
     <button type="button" id="add">+ node</button>
     <button type="button" id="run" class="ghost">run all</button>
   </div>
@@ -126,26 +126,30 @@ document.getElementById('run').onclick = async () => {
 };
 load();
 </script>
-<footer class="wrap">LARGA · GRID · your graph, your account</footer>
+<footer class="wrap">Larga · Grid · Cebu AI Agent Cup</footer>
 `,
   );
 }
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
-    const url = new URL(req.url);
-    if (url.pathname === "/" && req.method === "GET") {
-      return new Response(ui(!!env.DRIVE_URL), { headers: { "content-type": "text/html; charset=utf-8" } });
-    }
-    const m = url.pathname.match(/^\/api\/graphs\/([^/]+)(\/run)?$/);
-    if (m) {
-      const id = env.GRAPHS.idFromName(m[1]);
-      const stub = env.GRAPHS.get(id);
-      const path = m[2] ? "https://graph/run" : "https://graph/";
-      return stub.fetch(
-        new Request(path, { method: req.method, headers: req.headers, body: req.body }),
-      );
-    }
-    return new Response("not found", { status: 404 });
+    return fetchGrid(req, env);
   },
 } satisfies ExportedHandler<Env>;
+
+export async function fetchGrid(req: Request, env: Env): Promise<Response> {
+  const url = new URL(req.url);
+  if ((url.pathname === "/" || url.pathname === "/grid" || url.pathname === "/grid/") && req.method === "GET") {
+    return new Response(ui(!!env.DRIVE_URL), { headers: { "content-type": "text/html; charset=utf-8" } });
+  }
+  const m = url.pathname.match(/^\/api\/graphs\/([^/]+)(\/run)?$/);
+  if (m) {
+    const id = env.GRAPHS.idFromName(m[1]);
+    const stub = env.GRAPHS.get(id);
+    const path = m[2] ? "https://graph/run" : "https://graph/";
+    return stub.fetch(
+      new Request(path, { method: req.method, headers: req.headers, body: req.body }),
+    );
+  }
+  return new Response("not found", { status: 404 });
+}

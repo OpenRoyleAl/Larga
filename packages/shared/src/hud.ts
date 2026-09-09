@@ -1,4 +1,4 @@
-/** Retro HUD. Jeepney chrome + scanlines. Shared by Grid and Dex pages. */
+/** Retro HUD. Jeepney chrome + scanlines. */
 export const HUD_CSS = `
 :root {
   --bg: #07080d;
@@ -24,7 +24,10 @@ body::before {
 a { color: var(--hud); }
 .wrap { max-width: 720px; margin: 0 auto; padding: 1rem 1rem 4rem; }
 .brand { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; border-bottom: 2px solid var(--chrome); padding-bottom: .5rem; }
-.brand h1 { margin: 0; font-size: 1.4rem; letter-spacing: .2em; color: var(--chrome); text-transform: uppercase; }
+.brand h1 { margin: 0; font-size: 1.4rem; letter-spacing: .12em; color: var(--chrome); }
+.snip { position: relative; margin: .5rem 0 1rem; }
+.snip pre { margin: 0; padding: .8rem 5.5rem .8rem .8rem; background: #0b0e16; border: 1px solid #3a4258; color: var(--ok); }
+.snip .copy { position: absolute; top: .45rem; right: .45rem; z-index: 2; font-size: .7rem; padding: .35rem .55rem; }
 .brand span { color: var(--jeep); font-size: .75rem; }
 .tag { color: var(--dim); font-size: .85rem; margin: .75rem 0 1.25rem; }
 .panel { background: var(--panel); border: 1px solid #2a3144; padding: 1rem; margin: .75rem 0; }
@@ -74,8 +77,26 @@ export function page(title: string, body: string, extraHead = ""): string {
 ${extraHead}
 <body>
 ${body}
+<script>
+document.addEventListener("click", async (e) => {
+  const b = e.target.closest("[data-copy]");
+  if (!b) return;
+  const el = document.getElementById(b.getAttribute("data-copy"));
+  if (!el) return;
+  try {
+    await navigator.clipboard.writeText(el.innerText);
+    const old = b.textContent;
+    b.textContent = "Copied";
+    setTimeout(() => { b.textContent = old; }, 1200);
+  } catch (err) {}
+});
+</script>
 </body>
 </html>`;
+}
+
+export function snip(id: string, code: string): string {
+  return `<div class="snip"><pre id="${id}">${escapeHtml(code)}</pre><button type="button" class="copy" data-copy="${id}">Copy</button></div>`;
 }
 
 export function escapeHtml(s: string): string {

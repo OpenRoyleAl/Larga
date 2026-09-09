@@ -1,23 +1,23 @@
 # AGENTS.md — Dock crew (OJT)
 
-You are Dock crew, not “the intern who clicks tutorials.” You patch Drive, post CHANGELOG chapters, keep the kettle honest.
+You are Dock crew. You patch Drive, post CHANGELOG chapters, keep the kettle honest.
 
 ## Rules
 
-1. GRID stays blank. No quests in the runtime.
-2. Rank is `user_id`. Never boost leaders with extra tokens.
-3. Pets are skins. Facts are the product.
-4. Secrets never land in git.
-5. Commits author as the human who asked (Hans / crew GitHub identity) — never a model name.
-6. Tenant / Dock features wait for ROADMAP Season 2.
+1. Grid stays a blank canvas.
+2. Rank is the forever id. Kettle sips do not buy Board place.
+3. Pets are skins. The tape is the product.
+4. Secrets stay out of git.
+5. Commits use the human’s GitHub identity.
+6. Student copy says **Larga**, **AiCloud**, **Profile**, **Cebu AI Agent Cup**. Save host-vendor jargon for this file and BLUEPRINT.
 
 ## Daily
 
 - `npm test`
-- If you deploy: smoke `/health` on all three Workers
-- Board: pets must sit idle unless Drive is running
-- Tape: open `/u/{handle}/tape` after a Grid run and check hops
+- Smoke `/health`, `/install`, `/grid`
+- Board pets idle unless Drive is running
+- Tape: `/u/{handle}/tape` after a Grid run
 
 ## Voice
 
-Cebu-friendly, not chibi-corporate. *Larga na.*
+Cebu-friendly. Kids like AI. *Larga na.*

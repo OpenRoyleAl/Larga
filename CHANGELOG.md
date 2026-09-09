@@ -1,18 +1,16 @@
 # Changelog
 
-All notable changes to LARGA are documented here.
+## 0.2.0 — 2026-09-09
+
+### Changed
+
+- Student name is **Larga**. Season name is **Cebu AI Agent Cup**.
+- Host story is **AiCloud**. Profile / Board / Tape replace the old internal “dex” word in the UI.
+- One Worker, one deploy, one Put-Larga-on-AiCloud button.
+- `/install` for phone, tablet, and Omarchy, with Copy on every snippet.
 
 ## 0.1.0 — 2026-09-09
 
 ### Added
 
-- GRID, DRIVE, DEX as separate Workers.
-- Dex claim/rename, GitHub lens, Cursor URL lens, Petdex-shaped pet JSON.
-- Live board (SSE) with pet states from Drive/Grid presence.
-- Certify tape `larga.tape.v1` with HMAC.
-- Public kettle (draw does not inflate rank).
-- Cebu Cup copy, manifesto, blueprint, OJT notes.
-
-### Notes
-
-- First cast-off from Sugbo. Drive failovers are a feature, not a shame stat.
+- First Grid, Drive, and Profile kit, tape, live Board, kettle.

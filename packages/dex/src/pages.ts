@@ -1,44 +1,91 @@
-import { escapeHtml, page } from "../../shared/src/hud";
+import { escapeHtml, page, snip } from "../../shared/src/hud";
 import type { PetPack, PetState } from "../../shared/src/types";
 
 export function landing(cup: string, boardHtml: string, kettle: number): string {
   return page(
-    "LARGA",
+    "Larga",
     `
 <div class="wrap">
   <header class="brand">
     <h1>Larga</h1>
-    <span>na · ${escapeHtml(cup)}</span>
+    <span>${escapeHtml(cup)}</span>
   </header>
-  <p class="tag">Your phone. Your Cloudflare. Your Grid. Cebuano for cast off — not a sword.</p>
+  <p class="tag">Your phone. Your AiCloud. Your agents. <em>Larga na</em> — let’s go (Cebuano).</p>
   <nav>
+    <a href="/install">Install</a>
+    <a href="/grid">Grid</a>
     <a href="/board">Board</a>
     <a href="/me">Profile</a>
-    <a href="/certify">Certify</a>
-    <a href="/health">Health</a>
+    <a href="/certify">Tape</a>
   </nav>
   <div class="panel">
-    <strong>Claim a handle</strong>
-    <p class="meta">user_id never changes. Nickname can. Pet is optional.</p>
+    <strong>Pick your name</strong>
+    <p class="meta">This is your Pilot handle. You can change it later. Your id stays the same so companies still find you.</p>
     <form method="post" action="/v1/claim" class="row">
       <input name="handle" placeholder="suki-sa-molo" required minlength="3" maxlength="24">
       <button type="submit">Larga</button>
     </form>
   </div>
   <div class="panel">
-    <p class="meta">Sponsor kettle (public pot, not a leader multiplier)</p>
+    <p class="meta">Sponsor kettle — extra AI juice anyone on the Board can sip. Same rules for every Pilot.</p>
     <p class="rank">${kettle} units left</p>
   </div>
   <h2>Live board</h2>
   ${boardHtml}
-  <footer>GRID · DRIVE · DEX · OpenRoyleAl · Apache-2.0</footer>
+  <footer>Larga · OpenRoyleAl · ${escapeHtml(cup)}</footer>
+</div>`,
+  );
+}
+
+export function installPage(cup: string): string {
+  return page(
+    "Install Larga",
+    `
+<div class="wrap">
+  <header class="brand">
+    <h1>Larga</h1>
+    <span>install</span>
+  </header>
+  <p class="tag">${escapeHtml(cup)} — phone first, then a real laptop if you can. AI is the point. We like that here.</p>
+
+  <div class="panel">
+    <h2>Phone or tablet</h2>
+    <ol>
+      <li>Open this Larga site in Chrome or Safari.</li>
+      <li>Claim a handle on the home page.</li>
+      <li>Share → <strong>Add to Home Screen</strong>.</li>
+      <li>Open <a href="/grid">Grid</a>, add a node, run your first agent.</li>
+    </ol>
+    <p class="meta">Portrait mode. One thumb. That’s a full Pilot setup.</p>
+  </div>
+
+  <div class="panel">
+    <h2>Laptop — install Omarchy</h2>
+    <p>Omarchy is the Linux we want you on: fast, pretty, built for people who live in terminals and agents. Download the ISO, USB stick, boot, five questions. Manual: <a href="https://omarchy.org/manual/getting-started/">omarchy.org</a></p>
+    ${snip("omarchy-url", "https://omarchy.org/")}
+    <p>Then open this same Larga URL in the browser — or put Larga on <strong>your</strong> AiCloud with one deploy (next panel).</p>
+  </div>
+
+  <div class="panel">
+    <h2>Your own AiCloud — one deploy</h2>
+    <p>AiCloud is your free AI computer in the sky. One button. One Larga. Grid, Drive, Profile, Board, Tape — all together.</p>
+    <p><a class="btn" href="https://deploy.workers.cloudflare.com/?url=https://github.com/OpenRoyleAl/larga">Put Larga on my AiCloud</a></p>
+    <p class="meta">Sign up free when it asks. After it goes live, copy your new URL and use it on your phone too.</p>
+    <p>From Omarchy / any laptop, same thing in the terminal (tap Copy):</p>
+    ${snip(
+      "clone",
+      "git clone https://github.com/OpenRoyleAl/larga\ncd larga\nnpm install\nnpx wrangler login\nnpx wrangler d1 create larga\n# paste database_id into wrangler.jsonc\nnpx wrangler d1 migrations apply larga\nnpm run deploy",
+    )}
+  </div>
+
+  <p><a href="/">← home</a></p>
 </div>`,
   );
 }
 
 export function boardPage(cup: string, rows: string): string {
   return page(
-    "LARGA Board",
+    "Larga Board",
     `
 <div class="wrap">
   <header class="brand"><h1>Board</h1><span>${escapeHtml(cup)}</span></header>
@@ -125,7 +172,7 @@ export function profilePage(opts: {
         <p>Pet: ${escapeHtml(opts.petName || "none")}</p>
       </div>`;
   return page(
-    `${opts.handle} · LARGA`,
+    `${opts.handle} · Larga`,
     `
 <div class="wrap">
   <header class="brand"><h1>@${escapeHtml(opts.handle)}</h1><span>pilot</span></header>

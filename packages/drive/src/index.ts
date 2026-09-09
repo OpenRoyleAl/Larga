@@ -66,7 +66,7 @@ function openaiCompat(name: string, url: string, key: string, model: string): Pr
           authorization: `Bearer ${key}`,
           "content-type": "application/json",
           "http-referer": "https://github.com/OpenRoyleAl/larga",
-          "x-title": "LARGA Drive",
+          "x-title": "Larga Drive",
         },
         body: JSON.stringify({ model, messages }),
         signal: AbortSignal.timeout(20_000),
@@ -105,14 +105,19 @@ async function reportDex(env: Env, userId: string | undefined, hops: unknown, to
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
+    return fetchDrive(req, env);
+  },
+} satisfies ExportedHandler<Env>;
+
+export async function fetchDrive(req: Request, env: Env): Promise<Response> {
     const url = new URL(req.url);
-    if (req.method === "GET" && url.pathname === "/health") {
+    if (req.method === "GET" && (url.pathname === "/health" || url.pathname === "/drive/health")) {
       const names = providers(env).map((p) => p.name);
       return Response.json({ ok: true, primitive: "drive", providers: names });
     }
     if (req.method === "GET" && url.pathname === "/") {
       return new Response(
-        "LARGA Drive — POST /v1/complete { prompt | messages, userId }\nGET /health\n",
+        "Larga Drive — POST /v1/complete { prompt | messages, userId }\nGET /health\n",
         { headers: { "content-type": "text/plain; charset=utf-8" } },
       );
     }
@@ -159,5 +164,4 @@ export default {
       }
     }
     return new Response("not found", { status: 404 });
-  },
-} satisfies ExportedHandler<Env>;
+}

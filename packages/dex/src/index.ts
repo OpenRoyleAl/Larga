@@ -2,7 +2,7 @@ import { signTape } from "../../shared/src/certify";
 import { page } from "../../shared/src/hud";
 import { newUserId, normalizeHandle } from "../../shared/src/handle";
 import type { CertifyTape, PetPack, PetState } from "../../shared/src/types";
-import { boardPage, landing, profilePage, rowHtml } from "./pages";
+import { boardPage, installPage, landing, profilePage, rowHtml } from "./pages";
 
 export interface Env {
   DB: D1Database;
@@ -163,11 +163,20 @@ async function form(req: Request): Promise<URLSearchParams> {
 
 export default {
   async fetch(req: Request, env: Env): Promise<Response> {
+    return fetchProfile(req, env);
+  },
+} satisfies ExportedHandler<Env>;
+
+export async function fetchProfile(req: Request, env: Env): Promise<Response> {
     const url = new URL(req.url);
     const { pathname } = url;
 
     if (pathname === "/health") {
-      return json({ ok: true, primitive: "dex", cup: env.CUP_NAME });
+      return json({ ok: true, app: "larga", cup: env.CUP_NAME });
+    }
+
+    if (pathname === "/install" && req.method === "GET") {
+      return html(installPage(env.CUP_NAME));
     }
 
     if (pathname === "/" && req.method === "GET") {
@@ -399,7 +408,7 @@ export default {
       if (pathname === "/certify" && wantHtml(req)) {
         return html(
           page(
-            "LARGA Tape",
+            "Larga Tape",
             `<div class="wrap"><header class="brand"><h1>Tape</h1></header>
           <p class="tag">Resume + case study + cover letter. user_id is the contract.</p>
           <pre>${escapePre(JSON.stringify(tape, null, 2))}</pre>
@@ -428,8 +437,7 @@ export default {
     }
 
     return json({ error: "not found" }, 404);
-  },
-} satisfies ExportedHandler<Env>;
+}
 
 function html(s: string): Response {
   return new Response(s, { headers: { "content-type": "text/html; charset=utf-8" } });

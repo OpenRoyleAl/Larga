@@ -1,21 +1,17 @@
 {
   "name": "larga",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
-  "description": "LARGA — student-owned cloud AI kit. GRID / DRIVE / DEX on your Cloudflare account.",
+  "description": "Larga — student AiCloud kit. Grid, Drive, Profile. Cebu AI Agent Cup.",
   "license": "Apache-2.0",
   "scripts": {
     "test": "node --experimental-strip-types --test packages/shared/src/*.test.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "dev:drive": "wrangler dev --config packages/drive/wrangler.jsonc",
-    "dev:grid": "wrangler dev --config packages/grid/wrangler.jsonc",
-    "dev:dex": "wrangler dev --config packages/dex/wrangler.jsonc",
-    "deploy:drive": "wrangler deploy --config packages/drive/wrangler.jsonc",
-    "deploy:grid": "wrangler deploy --config packages/grid/wrangler.jsonc",
-    "deploy:dex": "wrangler deploy --config packages/dex/wrangler.jsonc",
-    "deploy:all": "bash scripts/deploy-all.sh",
-    "db:dex": "wrangler d1 migrations apply larga-dex --local --config packages/dex/wrangler.jsonc"
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db": "wrangler d1 migrations apply larga --local",
+    "db:remote": "wrangler d1 migrations apply larga"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "5.20260829.1",

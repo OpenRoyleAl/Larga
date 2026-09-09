@@ -1,6 +1,6 @@
 # Contributing
 
-PRs against `main`. Keep primitives small. New product nouns need a manifesto sentence.
+PRs against `main`. Student-facing words: Larga, AiCloud, Grid, Drive, Profile, Board, Tape, Cebu AI Agent Cup.
 
 ```sh
 npm test

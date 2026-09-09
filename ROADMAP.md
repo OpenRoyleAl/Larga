@@ -1,33 +1,32 @@
 # Roadmap
 
-## Season 0 — Cebu Cup (now)
+## Season 0 — Cebu AI Agent Cup (now)
 
-- [x] GRID / DRIVE / DEX Workers
-- [x] Handle + immortal `user_id`
+- [x] One Larga Worker (Grid + Drive + Profile)
+- [x] Handle + forever id
 - [x] GitHub + Cursor lenses
 - [x] Signed tape
-- [x] Live board + optional Petdex-format pet
-- [x] Public kettle (not a leader boost)
-- [ ] First public deploy on an OpenRoyleAl account (ops)
-- [ ] Real Cebu Cup dates + CHANGELOG chapters
+- [x] Live Board + optional pet
+- [x] Kettle
+- [x] Phone / tablet / Omarchy install copy
+- [ ] First public AiCloud URL for the Cup
+- [ ] Cup calendar in CHANGELOG
 
 ## Season 1 — Crew
 
-- [ ] School as Crew tag on Dex (still student-owned accounts)
-- [ ] `/carts` gallery (optional, not quests)
-- [ ] Cursor usage lens if/when a public API exists
-- [ ] Pet family (multiple packs, one active)
+- [ ] School tag on Profile (student still owns the AiCloud)
+- [ ] `/carts` gallery
+- [ ] Cursor usage lens when a public API exists
+- [ ] Pet family (many packs, one active)
 
-## Season 2 — Dock (wait on Tenant)
+## Season 2 — Dock
 
 - [ ] School MOA — OJT ready
-- [ ] Workers for Platforms berth
-- [ ] Pre-OJT pool filtered on **tape facts**, not diplomas
+- [ ] Tenant berth
+- [ ] Pre-OJT pool from tape facts
 - [ ] Company pick → full OJT
 
 ## Season 3 — Flag
 
 - [ ] Country cups
-- [ ] Cross-Dex federation (optional)
-
-Dock does not land in the README hero until Tenant exists.
+- [ ] Optional Profile federation

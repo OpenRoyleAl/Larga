@@ -15,7 +15,7 @@
   },
   "migrations": [{ "tag": "v1", "new_classes": ["Presence"] }],
   "vars": {
-    "CUP_NAME": "Cebu Cup",
+    "CUP_NAME": "Cebu AI Agent Cup",
     "CERT_SECRET": "",
     "SERVICE_SECRET": ""
   }
