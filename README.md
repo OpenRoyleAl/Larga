@@ -34,7 +34,7 @@ Pets optional ([Petdex](https://petdex.dev)). They move on the Board while Drive
 
 ## Free Student Ai
 
-Straight to tokens: **[RESOURCES.md](RESOURCES.md)** — Groq, Google Ai Studio, OpenRouter, Hugging Face, GitHub Student Pack, Cerebras, SambaNova, Mistral, GitHub Models, CloudFlare Workers Ai.
+Straight to tokens: **[RESOURCES.md](RESOURCES.md)** — Groq, Google Ai Studio, OpenRouter, Pack, plus linked catalogs (verify dates).
 
 ## Omarchy (laptop)
 
@@ -66,6 +66,9 @@ Open your Larga URL → claim handle → Add to Home Screen → Grid.
 
 ## 1 deploy on CloudFlare
 
+**Only this.** Repo root. `wrangler.jsonc`. `npm run deploy`.  
+`packages/` is source. Do not run wrangler inside `packages/drive` (those extra configs are gone).
+
 Runs on [CloudFlare Workers](https://developers.cloudflare.com/workers/). Free student tier is enough. One Worker = Grid + Drive + Profile.
 
 [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/OpenRoyleAl/Larga)
@@ -76,12 +79,14 @@ cd Larga
 npm install
 npx wrangler login
 npx wrangler d1 create larga
-# paste database_id into wrangler.jsonc
+# paste database_id into wrangler.jsonc  (repo root)
 npx wrangler d1 migrations apply larga
 npm run deploy
 ```
 
-Then keep Drive fed: [RESOURCES.md](RESOURCES.md) → `wrangler secret put GROQ_API_KEY` (and friends). Drive hops when a mint 429s.
+Then keep Drive fed: [RESOURCES.md](RESOURCES.md) → `wrangler secret put GROQ_API_KEY` (and friends). Drive hops on 429 / empty / 529. A 401 does not burn the next key.
+
+Catalogs we link (verify live): [Student-free-ai-packs](https://github.com/asbinthapa99/Student-free-ai-packs-) · [FreeLLMAPI](https://github.com/tashfeenahmed/freellmapi) (optional laptop `/v1`, not Larga).
 
 GitHub has **Copy** on code blocks. Live site `/install` and `/resources` have **Copy** too.
 

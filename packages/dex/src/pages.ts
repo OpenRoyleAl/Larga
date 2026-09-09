@@ -89,9 +89,9 @@ export function installPage(cup: string): string {
     <p>One Worker. Free student tier. <a class="btn" href="https://deploy.workers.cloudflare.com/?url=https://github.com/OpenRoyleAl/Larga">Deploy to Cloudflare</a></p>
     ${snip(
       "clone",
-      "git clone https://github.com/OpenRoyleAl/Larga\ncd Larga\nnpm install\nnpx wrangler login\nnpx wrangler d1 create larga\n# paste database_id into wrangler.jsonc\nnpx wrangler d1 migrations apply larga\nnpm run deploy",
+      "git clone https://github.com/OpenRoyleAl/Larga\ncd Larga\nnpm install\nnpx wrangler login\nnpx wrangler d1 create larga\n# paste database_id into wrangler.jsonc (repo root)\nnpx wrangler d1 migrations apply larga\nnpm run deploy",
     )}
-    <p class="meta">Keep running: <a href="/resources">Free Student Ai</a> then <code>npx wrangler secret put GROQ_API_KEY</code></p>
+    <p class="meta">Keep running: <a href="/resources">Free Student Ai</a> then <code>npx wrangler secret put GROQ_API_KEY</code>. Only <code>npm run deploy</code> from repo root.</p>
   </div>
 
   <p><a href="/">← home</a></p>
@@ -108,7 +108,7 @@ export function resourcesPage(): string {
     <h1>Larga</h1>
     <span>Free Student Ai</span>
   </header>
-  <p class="tag">Skip Larga and Omarchy if you only want tokens. Full list + after-deploy secrets: the repo <a href="https://github.com/OpenRoyleAl/Larga/blob/main/RESOURCES.md">RESOURCES.md</a>.</p>
+  <p class="tag">Skip Larga and Omarchy if you only want tokens. Live list: repo <a href="https://github.com/OpenRoyleAl/Larga/blob/main/RESOURCES.md">RESOURCES.md</a>. Extra catalogs (verify): <a href="https://github.com/asbinthapa99/Student-free-ai-packs-">Student packs</a> · <a href="https://github.com/tashfeenahmed/freellmapi">FreeLLMAPI</a>.</p>
   <div class="panel">
     <p><a href="https://console.groq.com/">Groq</a> · <a href="https://aistudio.google.com/apikey">Google Ai Studio</a> · <a href="https://openrouter.ai/">OpenRouter</a> · <a href="https://huggingface.co/settings/tokens">Hugging Face</a></p>
     <p><a href="https://education.github.com/pack">GitHub Student Pack</a> · <a href="https://cloud.cerebras.ai/">Cerebras</a> · <a href="https://cloud.sambanova.ai/">SambaNova</a> · <a href="https://console.mistral.ai/">Mistral</a> · <a href="https://github.com/marketplace/models">GitHub Models</a></p>

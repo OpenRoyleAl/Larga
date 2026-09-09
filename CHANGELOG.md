@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.2 — 2026-09-09
+
+### Changed
+
+- Linked [Student-free-ai-packs](https://github.com/asbinthapa99/Student-free-ai-packs-) and [FreeLLMAPI](https://github.com/tashfeenahmed/freellmapi) as catalogs to verify, not forks. Flagged expired pack rows.
+- Removed per-package wrangler configs. Root `npm run deploy` is the only path.
+- Drive hop: empty 200, 529, quota text; 401 does not burn the next mint. Harder unit tests.
+
 ## 0.2.1 — 2026-09-09
 
 ### Changed

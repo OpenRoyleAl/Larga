@@ -46,7 +46,7 @@ function providers(env: Env): ProviderCall[] {
           body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
           signal: AbortSignal.timeout(20_000),
         });
-        if (!res.ok) throw new Error(`${res.status} gemini`);
+        if (!res.ok) throw new Error(`${res.status} gemini ${await res.text().then((t) => t.slice(0, 80))}`);
         const j = (await res.json()) as { candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }> };
         const text = j.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
         return { text };
@@ -60,27 +60,28 @@ function openaiCompat(name: string, url: string, key: string, model: string): Pr
   return {
     name,
     run: async (messages) => {
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          authorization: `Bearer ${key}`,
-          "content-type": "application/json",
-          "http-referer": "https://github.com/OpenRoyleAl/larga",
-          "x-title": "Larga Drive",
-        },
-        body: JSON.stringify({ model, messages }),
-        signal: AbortSignal.timeout(20_000),
-      });
-      if (!res.ok) throw new Error(`${res.status} ${name}`);
-      const j = (await res.json()) as {
-        choices?: Array<{ message?: { content?: string } }>;
-        usage?: { prompt_tokens?: number; completion_tokens?: number };
-      };
-      return {
-        text: j.choices?.[0]?.message?.content ?? "",
-        tokensIn: j.usage?.prompt_tokens,
-        tokensOut: j.usage?.completion_tokens,
-      };
+        const res = await fetch(url, {
+          method: "POST",
+          headers: {
+            authorization: `Bearer ${key}`,
+            "content-type": "application/json",
+            "http-referer": "https://github.com/OpenRoyleAl/Larga",
+            "x-title": "Larga Drive",
+          },
+          body: JSON.stringify({ model, messages }),
+          signal: AbortSignal.timeout(20_000),
+        });
+        const raw = await res.text();
+        if (!res.ok) throw new Error(`${res.status} ${name} ${raw.slice(0, 120)}`);
+        const j = JSON.parse(raw) as {
+          choices?: Array<{ message?: { content?: string } }>;
+          usage?: { prompt_tokens?: number; completion_tokens?: number };
+        };
+        return {
+          text: j.choices?.[0]?.message?.content ?? "",
+          tokensIn: j.usage?.prompt_tokens,
+          tokensOut: j.usage?.completion_tokens,
+        };
     },
   };
 }

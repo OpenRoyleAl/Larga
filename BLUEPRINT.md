@@ -1,17 +1,19 @@
 # Blueprint
 
-One Worker. One deploy. Student-owned AiCloud.
+One Worker. One deploy. **`npm run deploy` from repo root only** (`wrangler.jsonc`). `packages/` is source.
 
 ```
-phone / tablet / Omarchy
+phone / tablet / Omarchy Super+L
         │
         ▼
      Larga (Grid UI + Drive + Profile + Board + Tape)
         │
         ├─ Grid rooms (Durable Object)
-        ├─ Drive → Workers Ai, then optional extra keys
+        ├─ Drive → Workers Ai, then Groq / OpenRouter / Gemini keys
         └─ Profile DB + live presence + HMAC tape
 ```
+
+Pets are skins. Tape is the product.
 
 Crew notes (host wiring): see `wrangler.jsonc`. Database `larga`, classes `GraphRoom` and `Presence`.
 

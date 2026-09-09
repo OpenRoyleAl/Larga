@@ -4,9 +4,21 @@ Skip Larga. Skip Omarchy. This page is the tokens.
 
 Quotas die. Make three accounts. When one naps, use the next.
 
-## After you deploy Larga on CloudFlare
+## Catalogs (trust but verify)
 
-Drive already has CloudFlare Workers Ai. Extra keys keep the Cup alive:
+We do **not** fork these. We link them. Deals rot.
+
+| Catalog | What it is | Use for |
+|---|---|---|
+| [Student-free-ai-packs](https://github.com/asbinthapa99/Student-free-ai-packs-) | Student software / cloud / Pack deals (~5 months old as of check) | GitHub Student Pack, JetBrains, Figma Education, Azure for Students, AWS Educate. **Skip expired rows** (e.g. Google One Gemini Advanced “before June 30 2025”). Heroku “free tier” is gone. |
+| [GitHub Student Pack](https://education.github.com/pack) | The live Pack | Copilot / Codespaces / whatever GitHub still lists today |
+| [FreeLLMAPI](https://github.com/tashfeenahmed/freellmapi) | Self-host one `/v1` that hops many free mints | Optional. Not required for Larga. Personal use. Live model list: [freellmapi.co/models](https://freellmapi.co/models.html) |
+
+Larga Drive is our hop on CloudFlare. FreeLLMAPI is if you want a laptop `/v1` without deploying Larga.
+
+## After you deploy Larga (`npm run deploy` from repo root)
+
+Workers Ai is already on. Extra keys keep the Cup alive:
 
 ```sh
 npx wrangler secret put GROQ_API_KEY
@@ -14,40 +26,38 @@ npx wrangler secret put OPENROUTER_API_KEY
 npx wrangler secret put GEMINI_API_KEY
 ```
 
-Paste the key, enter, redeploy if the Worker was already live (`npm run deploy`). Drive hops on 429 / 5xx. When a key dies, come back here, mint another, put it in.
+Drive hops on 429 / 5xx / 529 / empty / quota text. A **401** stops the hop so a dead key does not burn the next mint.
 
-## Mints (free / student)
+## Mints we wire or list
 
-| Mint | Link | What you get |
+| Mint | Link | Drive? |
 |---|---|---|
-| Groq | [console.groq.com](https://console.groq.com/) | Fast Llama / Mixtral. Daily free. |
-| Google Ai Studio | [aistudio.google.com](https://aistudio.google.com/apikey) | Gemini key. Generous free. |
-| OpenRouter | [openrouter.ai](https://openrouter.ai/) | One key, many free models (`:free`). |
-| Hugging Face | [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens) | Inference + student perks. |
-| GitHub Student Pack | [education.github.com/pack](https://education.github.com/pack) | School email. Coupons, Copilot, more. |
-| CloudFlare Workers Ai | included with Larga deploy | Default Drive brain. No extra key. |
-| Cerebras | [cloud.cerebras.ai](https://cloud.cerebras.ai/) | Free tier, huge context. |
-| SambaNova | [cloud.sambanova.ai](https://cloud.sambanova.ai/) | Free Llama. |
-| Mistral | [console.mistral.ai](https://console.mistral.ai/) | Experiment / student credits. |
-| GitHub Models | [github.com/marketplace/models](https://github.com/marketplace/models) | Playground + token via GitHub. |
+| CloudFlare Workers Ai | with Larga deploy | yes, default |
+| Groq | [console.groq.com](https://console.groq.com/) | `GROQ_API_KEY` |
+| Google Ai Studio | [aistudio.google.com/apikey](https://aistudio.google.com/apikey) | `GEMINI_API_KEY` |
+| OpenRouter `:free` | [openrouter.ai](https://openrouter.ai/) | `OPENROUTER_API_KEY` |
+| Hugging Face | [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens) | mint only |
+| Cerebras | [cloud.cerebras.ai](https://cloud.cerebras.ai/) | mint only |
+| SambaNova | [cloud.sambanova.ai](https://cloud.sambanova.ai/) | mint only |
+| Mistral | [console.mistral.ai](https://console.mistral.ai/) | mint only |
+| GitHub Models | [github.com/marketplace/models](https://github.com/marketplace/models) | mint only |
+| GitHub Student Pack | [education.github.com/pack](https://education.github.com/pack) | Copilot / credits, not Drive |
+| JetBrains Edu | [jetbrains.com/community/education](https://www.jetbrains.com/community/education/) | IDEs |
+| Figma Education | [figma.com/education](https://www.figma.com/education/) | design |
+| Azure for Students | [azure.microsoft.com/free/students](https://azure.microsoft.com/en-us/free/students/) | cloud credits |
+| AWS Educate | [aws.amazon.com/education/awseducate](https://aws.amazon.com/education/awseducate/) | cloud credits |
 
-School email helps on Pack, Google, GitHub. Personal Gmail still works on Groq + Ai Studio + OpenRouter.
+School email helps Pack / Azure / JetBrains. Gmail still works on Groq + Ai Studio + OpenRouter.
 
 ## Android terminal
 
-The app is **Termux**. Not the Play Store. Play Store Termux is a zombie.
-
-1. Optional: install the [F-Droid client](https://f-droid.org/en/packages/org.fdroid.fdroid/).
-2. Install Termux: [f-droid.org/packages/com.termux](https://f-droid.org/packages/com.termux/)
-3. Open Termux, then:
+**Termux** from F-Droid, not Play Store: [f-droid.org/packages/com.termux](https://f-droid.org/packages/com.termux/)
 
 ```sh
 pkg update && pkg upgrade
 pkg install tmux git
 ```
 
-Uninstall Play Store Termux first if you already have it.
-
 ## iPhone
 
-No Termux. You're out of luck for a real terminal. Safari can still open a Larga site if someone deployed one.
+No Termux. Out of luck for a terminal. Safari can still open a Larga site.
