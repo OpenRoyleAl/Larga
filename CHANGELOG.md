@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.3 — 2026-09-09
+
+### Shipped
+
+- Live: https://larga.alfred-89f.workers.dev
+- D1 `larga`, SQLite Durable Objects, Workers Ai default `@cf/meta/llama-3.2-1b-instruct` (3.1-8b was deprecated 2026-05-30).
+
 ## 0.2.2 — 2026-09-09
 
 ### Changed

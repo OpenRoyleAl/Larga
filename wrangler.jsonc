@@ -8,7 +8,7 @@
     {
       "binding": "DB",
       "database_name": "larga",
-      "database_id": "REPLACE_AFTER_CREATE",
+      "database_id": "11d4d13c-11fa-4051-bf4a-5a399b34b30c",
       "migrations_dir": "packages/dex/migrations"
     }
   ],
@@ -21,14 +21,12 @@
   "migrations": [
     {
       "tag": "v1",
-      "new_classes": ["GraphRoom", "Presence"]
+      "new_sqlite_classes": ["GraphRoom", "Presence"]
     }
   ],
   "vars": {
     "CUP_NAME": "Cebu Ai Agent Cup",
     "DRIVE_URL": "",
-    "DEX_URL": "",
-    "CERT_SECRET": "",
-    "SERVICE_SECRET": ""
+    "DEX_URL": ""
   }
 }

@@ -64,10 +64,14 @@ pkg install tmux git
 
 Open your Larga URL → claim handle → Add to Home Screen → Grid.
 
+## Live
+
+https://larga.alfred-89f.workers.dev
+
 ## 1 deploy on CloudFlare
 
 **Only this.** Repo root. `wrangler.jsonc`. `npm run deploy`.  
-`packages/` is source. Do not run wrangler inside `packages/drive` (those extra configs are gone).
+`packages/` is source. Do not run wrangler inside `packages/` — those extra configs are gone.
 
 Runs on [CloudFlare Workers](https://developers.cloudflare.com/workers/). Free student tier is enough. One Worker = Grid + Drive + Profile.
 

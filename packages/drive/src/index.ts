@@ -14,16 +14,20 @@ export interface Env {
 function providers(env: Env): ProviderCall[] {
   const list: ProviderCall[] = [];
   if (env.AI) {
-    list.push({
-      name: "workers-ai",
-      run: async (messages) => {
-        const r = (await env.AI!.run("@cf/meta/llama-3.1-8b-instruct", {
-          messages,
-        })) as { response?: string };
-        const text = r.response ?? JSON.stringify(r);
-        return { text: String(text) };
-      },
-    });
+    for (const model of [
+      "@cf/meta/llama-3.2-1b-instruct",
+      "@cf/meta/llama-3.1-8b-instruct-fast",
+    ] as const) {
+      const id = model.split("/").pop()!;
+      list.push({
+        name: `workers-ai:${id}`,
+        run: async (messages) => {
+          const r = (await env.AI!.run(model, { messages })) as { response?: string };
+          const text = r.response ?? JSON.stringify(r);
+          return { text: String(text) };
+        },
+      });
+    }
   }
   if (env.GROQ_API_KEY) {
     list.push(openaiCompat("groq", "https://api.groq.com/openai/v1/chat/completions", env.GROQ_API_KEY, "llama-3.1-8b-instant"));

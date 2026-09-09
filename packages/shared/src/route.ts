@@ -6,7 +6,7 @@ export type ProviderCall = {
 };
 
 const HOP_ERR =
-  /timeout|network|abort|429|5\d\d|402|408|529|rate.?limit|quota|overloaded|capacity|resource.?exhausted|too many requests|empty( response)?|no content|temporarily unavailable|try again/i;
+  /timeout|network|abort|429|5\d\d|402|408|529|rate.?limit|quota|overloaded|capacity|resource.?exhausted|too many requests|empty( response)?|no content|temporarily unavailable|try again|deprecat/i;
 
 export function statusFromError(err: string): number | undefined {
   const m = err.match(/\b([45]\d\d)\b/);
