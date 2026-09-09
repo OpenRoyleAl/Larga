@@ -75,7 +75,7 @@ function ui(driveSet: boolean): string {
     `
 <header class="brand wrap" style="max-width:none">
   <h1>Grid</h1>
-  <span>chain AI here</span>
+  <span>chain Ai here</span>
 </header>
 <div class="wrap">
   <p class="tag">Add a node. Type a prompt. Run. Your pet on the Board moves while Drive is working.</p>
@@ -126,7 +126,7 @@ document.getElementById('run').onclick = async () => {
 };
 load();
 </script>
-<footer class="wrap">Larga · Grid · Cebu AI Agent Cup</footer>
+<footer class="wrap">Larga · Grid · Cebu Ai Agent Cup</footer>
 `,
   );
 }

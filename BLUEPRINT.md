@@ -9,7 +9,7 @@ phone / tablet / Omarchy
      Larga (Grid UI + Drive + Profile + Board + Tape)
         │
         ├─ Grid rooms (Durable Object)
-        ├─ Drive → built-in AI, then optional extra keys
+        ├─ Drive → Workers Ai, then optional extra keys
         └─ Profile DB + live presence + HMAC tape
 ```
 

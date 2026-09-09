@@ -2,7 +2,7 @@ import { signTape } from "../../shared/src/certify";
 import { page } from "../../shared/src/hud";
 import { newUserId, normalizeHandle } from "../../shared/src/handle";
 import type { CertifyTape, PetPack, PetState } from "../../shared/src/types";
-import { boardPage, installPage, landing, profilePage, rowHtml } from "./pages";
+import { boardPage, installPage, landing, profilePage, resourcesPage, rowHtml } from "./pages";
 
 export interface Env {
   DB: D1Database;
@@ -177,6 +177,10 @@ export async function fetchProfile(req: Request, env: Env): Promise<Response> {
 
     if (pathname === "/install" && req.method === "GET") {
       return html(installPage(env.CUP_NAME));
+    }
+
+    if (pathname === "/resources" && req.method === "GET") {
+      return html(resourcesPage());
     }
 
     if (pathname === "/" && req.method === "GET") {

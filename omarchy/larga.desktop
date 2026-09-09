@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Larga
+Comment=Cebu Ai Agent Cup
+Exec=larga-app
+Icon=applications-internet
+Terminal=false
+Categories=Education;Network;
+StartupWMClass=Larga

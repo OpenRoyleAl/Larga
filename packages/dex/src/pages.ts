@@ -10,14 +10,22 @@ export function landing(cup: string, boardHtml: string, kettle: number): string 
     <h1>Larga</h1>
     <span>${escapeHtml(cup)}</span>
   </header>
-  <p class="tag">Your phone. Your AiCloud. Your agents. <em>Larga na</em> — let’s go (Cebuano).</p>
+  <p class="tag">Your phone. Your CloudFlare. Your agents. <em>Larga na</em> — let’s go (Cebuano).</p>
   <nav>
     <a href="/install">Install</a>
+    <a href="/resources">Free Ai</a>
     <a href="/grid">Grid</a>
     <a href="/board">Board</a>
     <a href="/me">Profile</a>
     <a href="/certify">Tape</a>
   </nav>
+  <div class="panel">
+    <p class="meta">Need / skip</p>
+    <p>Tokens only → <a href="/resources">Free Student Ai</a> (skip Larga).</p>
+    <p>Laptop → Omarchy, then Super+L app named Larga.</p>
+    <p>Cup / Tape → 1 CloudFlare deploy.</p>
+    <p>Android shell → Termux on F-Droid. iPhone shell → out of luck.</p>
+  </div>
   <div class="panel">
     <strong>Pick your name</strong>
     <p class="meta">This is your Pilot handle. You can change it later. Your id stays the same so companies still find you.</p>
@@ -27,12 +35,12 @@ export function landing(cup: string, boardHtml: string, kettle: number): string 
     </form>
   </div>
   <div class="panel">
-    <p class="meta">Sponsor kettle — extra AI juice anyone on the Board can sip. Same rules for every Pilot.</p>
+    <p class="meta">Sponsor kettle — extra Ai juice anyone on the Board can sip. Same rules for every Pilot.</p>
     <p class="rank">${kettle} units left</p>
   </div>
   <h2>Live board</h2>
   ${boardHtml}
-  <footer>Larga · OpenRoyleAl · ${escapeHtml(cup)}</footer>
+  <footer>Larga · OpenRoyleAl · Born in Cebu · ${escapeHtml(cup)}</footer>
 </div>`,
   );
 }
@@ -46,39 +54,76 @@ export function installPage(cup: string): string {
     <h1>Larga</h1>
     <span>install</span>
   </header>
-  <p class="tag">${escapeHtml(cup)} — phone first, then a real laptop if you can. AI is the point. We like that here.</p>
+  <p class="tag">${escapeHtml(cup)}. Need / skip is on the home README. Tokens-only: <a href="/resources">Free Student Ai</a>.</p>
 
   <div class="panel">
-    <h2>Phone or tablet</h2>
+    <h2>Phone / tablet</h2>
     <ol>
-      <li>Open this Larga site in Chrome or Safari.</li>
-      <li>Claim a handle on the home page.</li>
-      <li>Share → <strong>Add to Home Screen</strong>.</li>
-      <li>Open <a href="/grid">Grid</a>, add a node, run your first agent.</li>
+      <li>Open this Larga URL.</li>
+      <li>Claim a handle.</li>
+      <li>Add to Home Screen.</li>
+      <li><a href="/grid">Grid</a>.</li>
     </ol>
-    <p class="meta">Portrait mode. One thumb. That’s a full Pilot setup.</p>
   </div>
 
   <div class="panel">
-    <h2>Laptop — install Omarchy</h2>
-    <p>Omarchy is the Linux we want you on: fast, pretty, built for people who live in terminals and agents. Download the ISO, USB stick, boot, five questions. Manual: <a href="https://omarchy.org/manual/getting-started/">omarchy.org</a></p>
-    ${snip("omarchy-url", "https://omarchy.org/")}
-    <p>Then open this same Larga URL in the browser — or put Larga on <strong>your</strong> AiCloud with one deploy (next panel).</p>
+    <h2>Android Termux</h2>
+    <p>Play Store Termux is dead. Use F-Droid:</p>
+    ${snip("termux", "https://f-droid.org/packages/com.termux/")}
+    ${snip("termux-pkg", "pkg update && pkg upgrade\npkg install tmux git")}
+    <p class="meta">iPhone: no Termux. Out of luck for a terminal. Safari can still open Larga.</p>
   </div>
 
   <div class="panel">
-    <h2>Your own AiCloud — one deploy</h2>
-    <p>AiCloud is your free AI computer in the sky. One button. One Larga. Grid, Drive, Profile, Board, Tape — all together.</p>
-    <p><a class="btn" href="https://deploy.workers.cloudflare.com/?url=https://github.com/OpenRoyleAl/larga">Put Larga on my AiCloud</a></p>
-    <p class="meta">Sign up free when it asks. After it goes live, copy your new URL and use it on your phone too.</p>
-    <p>From Omarchy / any laptop, same thing in the terminal (tap Copy):</p>
+    <h2>Omarchy — Super+L app</h2>
+    <p>Not a browser tab. Launcher name <strong>Larga</strong>. Hotkey <strong>Super+L</strong>.</p>
+    ${snip("omarchy", "https://omarchy.org/")}
     ${snip(
-      "clone",
-      "git clone https://github.com/OpenRoyleAl/larga\ncd larga\nnpm install\nnpx wrangler login\nnpx wrangler d1 create larga\n# paste database_id into wrangler.jsonc\nnpx wrangler d1 migrations apply larga\nnpm run deploy",
+      "omarchy-app",
+      "chmod +x omarchy/install-app.sh omarchy/larga-app\n./omarchy/install-app.sh\n# then edit ~/.config/larga/url",
     )}
   </div>
 
+  <div class="panel">
+    <h2>1 deploy on CloudFlare</h2>
+    <p>One Worker. Free student tier. <a class="btn" href="https://deploy.workers.cloudflare.com/?url=https://github.com/OpenRoyleAl/Larga">Deploy to Cloudflare</a></p>
+    ${snip(
+      "clone",
+      "git clone https://github.com/OpenRoyleAl/Larga\ncd Larga\nnpm install\nnpx wrangler login\nnpx wrangler d1 create larga\n# paste database_id into wrangler.jsonc\nnpx wrangler d1 migrations apply larga\nnpm run deploy",
+    )}
+    <p class="meta">Keep running: <a href="/resources">Free Student Ai</a> then <code>npx wrangler secret put GROQ_API_KEY</code></p>
+  </div>
+
   <p><a href="/">← home</a></p>
+</div>`,
+  );
+}
+
+export function resourcesPage(): string {
+  return page(
+    "Free Student Ai",
+    `
+<div class="wrap">
+  <header class="brand">
+    <h1>Larga</h1>
+    <span>Free Student Ai</span>
+  </header>
+  <p class="tag">Skip Larga and Omarchy if you only want tokens. Full list + after-deploy secrets: the repo <a href="https://github.com/OpenRoyleAl/Larga/blob/main/RESOURCES.md">RESOURCES.md</a>.</p>
+  <div class="panel">
+    <p><a href="https://console.groq.com/">Groq</a> · <a href="https://aistudio.google.com/apikey">Google Ai Studio</a> · <a href="https://openrouter.ai/">OpenRouter</a> · <a href="https://huggingface.co/settings/tokens">Hugging Face</a></p>
+    <p><a href="https://education.github.com/pack">GitHub Student Pack</a> · <a href="https://cloud.cerebras.ai/">Cerebras</a> · <a href="https://cloud.sambanova.ai/">SambaNova</a> · <a href="https://console.mistral.ai/">Mistral</a> · <a href="https://github.com/marketplace/models">GitHub Models</a></p>
+    <p>CloudFlare Workers Ai ships with a Larga deploy (no extra key).</p>
+  </div>
+  <div class="panel">
+    <h2>Keep Larga Drive alive</h2>
+    ${snip("secrets", "npx wrangler secret put GROQ_API_KEY\nnpx wrangler secret put OPENROUTER_API_KEY\nnpx wrangler secret put GEMINI_API_KEY")}
+  </div>
+  <div class="panel">
+    <h2>Android</h2>
+    ${snip("fdroid", "https://f-droid.org/packages/com.termux/")}
+    <p class="meta">iPhone terminal: out of luck.</p>
+  </div>
+  <p><a href="/install">install</a> · <a href="/">home</a></p>
 </div>`,
   );
 }

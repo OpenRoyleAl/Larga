@@ -25,7 +25,7 @@
     }
   ],
   "vars": {
-    "CUP_NAME": "Cebu AI Agent Cup",
+    "CUP_NAME": "Cebu Ai Agent Cup",
     "DRIVE_URL": "",
     "DEX_URL": "",
     "CERT_SECRET": "",

@@ -9,7 +9,8 @@ You are Dock crew. You patch Drive, post CHANGELOG chapters, keep the kettle hon
 3. Pets are skins. The tape is the product.
 4. Secrets stay out of git.
 5. Commits use the human’s GitHub identity.
-6. Student copy says **Larga**, **AiCloud**, **Profile**, **Cebu AI Agent Cup**. Save host-vendor jargon for this file and BLUEPRINT.
+6. Student copy: **Larga**, **Ai**, **CloudFlare**, **Profile**, **Cebu Ai Agent Cup**. Born in Cebu.
+7. Smoke `/resources` and Super+L omarchy scripts when you touch install.
 
 ## Daily
 
@@ -20,4 +21,4 @@ You are Dock crew. You patch Drive, post CHANGELOG chapters, keep the kettle hon
 
 ## Voice
 
-Cebu-friendly. Kids like AI. *Larga na.*
+Cebu-friendly. Kids like Ai. *Larga na.*

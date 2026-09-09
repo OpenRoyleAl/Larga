@@ -1,6 +1,6 @@
 # Roadmap
 
-## Season 0 — Cebu AI Agent Cup (now)
+## Season 0 — Cebu Ai Agent Cup (now)
 
 - [x] One Larga Worker (Grid + Drive + Profile)
 - [x] Handle + forever id

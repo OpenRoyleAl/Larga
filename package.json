@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "private": true,
   "type": "module",
-  "description": "Larga — student AiCloud kit. Grid, Drive, Profile. Cebu AI Agent Cup.",
+  "description": "Larga — Cebu Ai Agent Cup. One CloudFlare deploy. Grid, Drive, Profile.",
   "license": "Apache-2.0",
   "scripts": {
     "test": "node --experimental-strip-types --test packages/shared/src/*.test.ts",

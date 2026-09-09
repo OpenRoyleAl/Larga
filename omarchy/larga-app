@@ -1,0 +1,16 @@
+#!/bin/sh
+# Larga app window (not a browser tab). Super+L + app launcher.
+set -e
+URL_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/larga/url"
+if [ ! -f "$URL_FILE" ]; then
+  echo "echo 'https://YOUR-LARGA.workers.dev' > $URL_FILE"
+  exit 1
+fi
+URL=$(tr -d ' \n' < "$URL_FILE")
+for bin in chromium chromium-browser google-chrome-stable google-chrome brave-browser brave; do
+  if command -v "$bin" >/dev/null 2>&1; then
+    exec "$bin" --app="$URL" --ozone-platform=wayland --class=Larga --name=Larga
+  fi
+done
+echo "Install Chromium on Omarchy, then Super+L again."
+exit 1

@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.1 — 2026-09-09
+
+### Changed
+
+- Repo **Larga**. **Ai** spelling. **Cebu Ai Agent Cup**. Born in Cebu.
+- One CloudFlare deploy button. Free Student Ai list you can use without Larga.
+- Omarchy: Super+L + launcher name Larga (app window).
+- Android: Termux from F-Droid. iPhone terminal: out of luck.
+
 ## 0.2.0 — 2026-09-09
 
 ### Changed
