@@ -22,7 +22,11 @@ function providers(env: Env): ProviderCall[] {
       list.push({
         name: `workers-ai:${id}`,
         run: async (messages) => {
-          const r = (await env.AI!.run(model, { messages })) as { response?: string };
+          const run = env.AI!.run.bind(env.AI) as (
+            model: string,
+            inputs: { messages: Array<{ role: string; content: string }> },
+          ) => Promise<{ response?: string }>;
+          const r = await run(model, { messages });
           const text = r.response ?? JSON.stringify(r);
           return { text: String(text) };
         },
