@@ -76,9 +76,9 @@ Season dates / brackets: still being posted on [ROADMAP.md](ROADMAP.md). The tab
 |---|---|---|
 | Free Ai keys only (no tournament) | [RESOURCES.md](RESOURCES.md) | Omarchy, Larga, CloudFlare |
 | A Linux laptop built for this | [Omarchy](https://omarchy.org/) | Larga until you want the Cup |
-| **Enter the Cup** / Board / Tape | Open the live URL, or **1 CloudFlare deploy** of your own | extra keys until Drive 429s |
+| **Enter the Cup** / Board / Tape | Open the live URL **on that phone** | extra keys until Drive 429s |
 | Android terminal | **Termux from [F-Droid](https://f-droid.org/packages/com.termux/)** | Play Store Termux |
-| iPhone terminal | — | Out of luck. Safari can still open the Cup site. |
+| iPhone / iPad | Safari → Add to Home Screen → Grid | A Linux terminal. You do not need one. |
 
 ---
 
@@ -94,13 +94,13 @@ Optional pixel **pet** ([Petdex](https://petdex.dev)): moves on the Board only w
 
 ---
 
-## Enter on a phone (fastest)
+## Enter on this phone
 
-1. Open https://larga.openroyleal.com  
-2. Continue with GitHub or Google (that **is** your account)  
-3. Browser menu → Add to Home Screen  
-4. **Grid** → + node → type a prompt → run all  
-5. Check **Board**
+iPhone included. Open https://larga.openroyleal.com/install — claim a handle **on that screen**, Add to Home Screen, Grid. No second device.
+
+## Give this to your agent
+
+Copy [TO-YOUR-AGENT.md](TO-YOUR-AGENT.md) (same block is on live `/install`).
 
 ---
 

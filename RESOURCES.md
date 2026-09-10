@@ -74,4 +74,4 @@ pkg install tmux git
 
 ## iPhone
 
-No Termux. Out of luck for a terminal. Safari can still open a Larga site.
+Play in Safari. Share → Add to Home Screen. There is no Termux. You do not need a terminal.

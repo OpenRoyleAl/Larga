@@ -258,7 +258,7 @@ export async function fetchProfile(req: Request, env: Env): Promise<Response> {
     }
 
     if (pathname === "/install" && req.method === "GET") {
-      return html(installPage(env.CUP_NAME));
+      return html(installPage(env.CUP_NAME, oauthHtml));
     }
 
     if (pathname === "/resources" && req.method === "GET") {

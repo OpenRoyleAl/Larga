@@ -10,7 +10,7 @@ You are Dock crew. You patch Drive, post CHANGELOG chapters, keep the kettle hon
 4. Secrets stay out of git.
 5. Commits use the human’s GitHub identity.
 6. Student copy: **Larga**, **Ai**, **CloudFlare**, **Profile**, **Cebu Ai Agent Cup**. Born in Cebu.
-7. Smoke `/resources` and Super+L omarchy scripts when you touch install.
+7. Smoke `/install` (handle form on that page), `/resources`, Super+L omarchy when you touch install.
 8. Students hit **`npm run deploy` only**. Never add wrangler.jsonc under `packages/`. Shared Cup hostname is **Agent OpenRoyleAl** with `npm run deploy:cup` (`--domains larga.openroyleal.com`) — do not put that route in `wrangler.jsonc` or student deploys break.
 9. Drive hop tests in `packages/shared/src/certify.test.ts` — 429/empty/529 must hop; 401 must not.
 10. Shared Cup GitHub/Google login: OAuth apps owned by OpenRoyleAl. Callbacks `https://larga.openroyleal.com/v1/oauth/github/callback` and `.../google/callback`. Scopes GitHub `read:user user:email`, Google `openid email profile` only. `wrangler secret put` the four values (`GITHUB_CLIENT_ID` / `SECRET`, `GOOGLE_CLIENT_ID` / `SECRET`). Client IDs are public.

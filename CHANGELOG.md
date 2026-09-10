@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.8 — 2026-09-10
+
+### Changed
+
+- `/install` is one phone: claim handle here, Add to Home Screen, Grid. iPhone plays in Safari.
+- Copy block [TO-YOUR-AGENT.md](TO-YOUR-AGENT.md) on `/install`.
+
 ## 0.2.7 — 2026-09-10
 
 ### Changed

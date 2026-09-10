@@ -1,3 +1,4 @@
+import { TO_YOUR_AGENT } from "../../shared/src/agent-blurb";
 import { escapeHtml, page, snip } from "../../shared/src/hud";
 import type { PetPack, PetState } from "../../shared/src/types";
 
@@ -29,7 +30,7 @@ export function landing(cup: string, boardHtml: string, kettle: number, oauthHtm
     <p class="meta">Need / skip</p>
     <p>Tokens only → <a href="/resources">Free Student Ai</a>.</p>
     <p>Your own Worker → <a href="/install">Install</a>.</p>
-    <p>Android shell → Termux on F-Droid. iPhone shell → Safari still works.</p>
+    <p>iPhone / iPad → Safari on this phone. Android → Chrome, or Termux from F-Droid for a shell.</p>
   </div>
   <details class="panel">
     <summary>Handle only (no Google / GitHub)</summary>
@@ -58,16 +59,16 @@ export function welcomePage(handle: string, code: string): string {
     `
 <div class="wrap">
   <header class="brand"><h1>Pilot @${escapeHtml(handle)}</h1><span>save this</span></header>
-  <p class="tag">This recovery code <strong>is</strong> your account. The browser cookie is only a shortcut. New phone, cleared Safari, another laptop — paste this code at <a href="/login">/login</a>.</p>
+  <p class="tag">This recovery code <strong>is</strong> your account if you did not use GitHub/Google. Stay on <strong>this phone</strong>: Share → Add to Home Screen, then Grid. You do not need another device.</p>
   <div class="panel">
     ${snip("recovery", code)}
-    <p class="meta">Screenshot now. Put it in Notes. Do not paste it into Grid or Discord.</p>
+    <p class="meta">Screenshot into Notes. Do not paste it into Grid or Discord.</p>
   </div>
   <p class="row">
     <a class="btn" href="/grid">Open Grid</a>
     <a href="/me">Profile</a>
-    <a href="/login">Sign-in page</a>
   </p>
+  <p class="meta">iPhone: Share (square with arrow) → Add to Home Screen. Then tap Larga.</p>
 </div>`,
   );
 }
@@ -95,55 +96,53 @@ export function loginPage(err?: string, oauthHtml = ""): string {
   );
 }
 
-export function installPage(cup: string): string {
+export function installPage(cup: string, oauthHtml: string): string {
   return page(
     "Install Larga",
     `
 <div class="wrap">
   <header class="brand">
     <h1>Larga</h1>
-    <span>install</span>
+    <span>this phone</span>
   </header>
-  <p class="tag">${escapeHtml(cup)} is a student tournament. Fastest entry: claim a handle, save the recovery code, then Grid. Tokens-only (no Cup): <a href="/resources">Free Student Ai</a>.</p>
+  <p class="tag">${escapeHtml(cup)} — finish here. iPhone and Android both play in the browser. No laptop hop.</p>
 
   <div class="panel">
-    <h2>Phone / tablet</h2>
-    <ol>
-      <li>Open this Larga URL.</li>
-      <li>Claim a handle.</li>
-      <li>Screenshot the recovery code.</li>
-      <li>Add to Home Screen.</li>
-      <li><a href="/grid">Grid</a>.</li>
-    </ol>
+    <h2>1. Your name</h2>
+    <p class="meta">On this screen. Then screenshot the recovery code if you are not using GitHub/Google.</p>
+    ${oauthHtml}
+    <form method="post" action="/v1/claim" class="row">
+      <input name="handle" placeholder="suki-sa-molo" required minlength="3" maxlength="24">
+      <button type="submit">Claim handle</button>
+    </form>
+    <p class="meta"><a href="/login">Already a Pilot</a></p>
   </div>
 
   <div class="panel">
-    <h2>Android Termux</h2>
-    <p>Play Store Termux is dead. Use F-Droid:</p>
-    ${snip("termux", "https://f-droid.org/packages/com.termux/")}
-    ${snip("termux-pkg", "pkg update && pkg upgrade\npkg install tmux git")}
-    <p class="meta">iPhone: no Termux. Out of luck for a terminal. Safari can still open Larga.</p>
+    <h2>2. Stay on this phone</h2>
+    <p>iPhone / iPad: Safari → Share → <strong>Add to Home Screen</strong> → open Larga → <a href="/grid">Grid</a>.</p>
+    <p>Android: Chrome → menu → Add to Home screen → <a href="/grid">Grid</a>.</p>
+    <p class="meta">There is no iPhone Termux. You do not need one. The site is the game.</p>
   </div>
 
   <div class="panel">
-    <h2>Omarchy — Super+L app</h2>
-    <p>Not a browser tab. Launcher name <strong>Larga</strong>. Hotkey <strong>Super+L</strong>.</p>
-    ${snip("omarchy", "https://omarchy.org/")}
-    ${snip(
-      "omarchy-app",
-      "chmod +x omarchy/install-app.sh omarchy/larga-app\n./omarchy/install-app.sh\n# default URL is the shared Cup; change ~/.config/larga/url only for your own Worker",
-    )}
+    <h2>Give this to your agent</h2>
+    <p class="meta">Cursor, Claude, Copilot, whatever. Copy once. They should not ask you for a second device.</p>
+    ${snip("to-agent", TO_YOUR_AGENT)}
   </div>
 
-  <div class="panel">
-    <h2>1 deploy on CloudFlare</h2>
-    <p>One Worker. Free student tier. <a class="btn" href="https://deploy.workers.cloudflare.com/?url=https://github.com/OpenRoyleAl/Larga">Deploy to Cloudflare</a></p>
+  <details class="panel">
+    <summary>Optional: own Worker / Omarchy / Termux</summary>
+    <p>Shared Cup is already live. Deploy only if you want your own Board.</p>
+    <p><a class="btn" href="https://deploy.workers.cloudflare.com/?url=https://github.com/OpenRoyleAl/Larga">Deploy to Cloudflare</a></p>
     ${snip(
       "clone",
       "git clone https://github.com/OpenRoyleAl/Larga\ncd Larga\nnpm install\nnpx wrangler login\nnpx wrangler d1 create larga\n# paste database_id into wrangler.jsonc (repo root)\nnpx wrangler d1 migrations apply larga\nnpm run deploy",
     )}
-    <p class="meta">Shared Cup is already live — you do not need to deploy. Own copy: <a href="/resources">Free Student Ai</a> then <code>npx wrangler secret put GROQ_API_KEY</code> (never commit the key). Only <code>npm run deploy</code> from repo root.</p>
-  </div>
+    <p class="meta">Android shell only: Termux from F-Droid, not Play Store.</p>
+    ${snip("termux", "https://f-droid.org/packages/com.termux/")}
+    ${snip("omarchy-app", "chmod +x omarchy/install-app.sh omarchy/larga-app\n./omarchy/install-app.sh")}
+  </details>
 
   <p><a href="/">← home</a></p>
 </div>`,
@@ -177,7 +176,7 @@ export function resourcesPage(): string {
   <div class="panel">
     <h2>Android</h2>
     ${snip("fdroid", "https://f-droid.org/packages/com.termux/")}
-    <p class="meta">iPhone terminal: out of luck.</p>
+    <p class="meta">iPhone: Safari. Add to Home Screen. You are not missing a terminal.</p>
   </div>
   <p><a href="/install">install</a> · <a href="/">home</a></p>
 </div>`,

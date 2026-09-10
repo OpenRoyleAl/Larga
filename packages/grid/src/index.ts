@@ -80,7 +80,7 @@ function ui(driveSet: boolean): string {
 <div class="wrap">
   <p class="tag">Add a node. Type a prompt. Run. Your pet on the Board moves while Drive is working.</p>
   <p class="meta">Drive ${driveSet ? "ready" : "still waking up"} · Prompts only — never paste an API key here.</p>
-  <p class="meta" id="who">Checking your Pilot… <a href="/">claim a handle</a> if this is your first run.</p>
+  <p class="meta" id="who">Checking your Pilot… <a href="/install">claim a handle</a> if this is your first run.</p>
   <div class="row">
     <button type="button" id="add">+ node</button>
     <button type="button" id="run" class="ghost">run all</button>
