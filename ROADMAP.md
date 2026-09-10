@@ -9,8 +9,8 @@
 - [x] Live Board + optional pet
 - [x] Kettle
 - [x] Phone / tablet / Omarchy install copy
-- [ ] First public AiCloud URL for the Cup
-- [ ] Cup calendar in CHANGELOG
+- [x] Live Cup URL: https://larga.alfred-89f.workers.dev
+- [ ] Cup calendar / round dates in CHANGELOG
 
 ## Season 1 — Crew
 

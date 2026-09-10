@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.4 — 2026-09-10
+
+### Changed
+
+- README explains Ai for IT students and spells the **Cup** as Season 0 tournament (rules + Board rank).
+
 ## 0.2.3 — 2026-09-09
 
 ### Shipped

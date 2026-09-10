@@ -10,7 +10,7 @@ export function landing(cup: string, boardHtml: string, kettle: number): string 
     <h1>Larga</h1>
     <span>${escapeHtml(cup)}</span>
   </header>
-  <p class="tag">Your phone. Your CloudFlare. Your agents. <em>Larga na</em> — let’s go (Cebuano).</p>
+  <p class="tag"><em>Larga na</em> — let’s go. Season 0 is a <strong>tournament</strong>: Pilot vs Pilot on the Board. Claim a handle, run Grid, get ranked.</p>
   <nav>
     <a href="/install">Install</a>
     <a href="/resources">Free Ai</a>
@@ -23,7 +23,7 @@ export function landing(cup: string, boardHtml: string, kettle: number): string 
     <p class="meta">Need / skip</p>
     <p>Tokens only → <a href="/resources">Free Student Ai</a> (skip Larga).</p>
     <p>Laptop → Omarchy, then Super+L app named Larga.</p>
-    <p>Cup / Tape → 1 CloudFlare deploy.</p>
+    <p>Enter the Cup → claim a handle, then <a href="/grid">Grid</a>.</p>
     <p>Android shell → Termux on F-Droid. iPhone shell → out of luck.</p>
   </div>
   <div class="panel">
@@ -38,7 +38,8 @@ export function landing(cup: string, boardHtml: string, kettle: number): string 
     <p class="meta">Sponsor kettle — extra Ai juice anyone on the Board can sip. Same rules for every Pilot.</p>
     <p class="rank">${kettle} units left</p>
   </div>
-  <h2>Live board</h2>
+  <h2>Cup Board — Season 0</h2>
+  <p class="meta">Rank: graphs run, then failovers (Drive hops), then tokens. Pets are skins.</p>
   ${boardHtml}
   <footer>Larga · OpenRoyleAl · Born in Cebu · ${escapeHtml(cup)}</footer>
 </div>`,
@@ -54,7 +55,7 @@ export function installPage(cup: string): string {
     <h1>Larga</h1>
     <span>install</span>
   </header>
-  <p class="tag">${escapeHtml(cup)}. Need / skip is on the home README. Tokens-only: <a href="/resources">Free Student Ai</a>.</p>
+  <p class="tag">${escapeHtml(cup)} is a student tournament. Fastest entry: claim a handle on the home page, then Grid. Tokens-only (no Cup): <a href="/resources">Free Student Ai</a>.</p>
 
   <div class="panel">
     <h2>Phone / tablet</h2>
@@ -134,7 +135,7 @@ export function boardPage(cup: string, rows: string): string {
     `
 <div class="wrap">
   <header class="brand"><h1>Board</h1><span>${escapeHtml(cup)}</span></header>
-  <p class="tag">Pets move when Drive is in flight. Idle pets do not fake-run.</p>
+  <p class="tag">Season 0 table. Rank = graphs, then failovers, then tokens out. Pets move only while Drive is running.</p>
   <p class="meta"><a href="/">home</a> · live via EventSource</p>
   <div id="board">${rows}</div>
 </div>

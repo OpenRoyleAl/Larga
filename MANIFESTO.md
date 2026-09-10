@@ -26,4 +26,4 @@ Cebuano: let’s go. Grid starts empty. Drive hops between free Ai brains. **Pro
 
 ## Season
 
-**Cebu Ai Agent Cup**. Born in Cebu.
+**Cebu Ai Agent Cup** = Season 0 tournament. Pilot vs Pilot on the live Board (graphs, failovers, tokens). Crew (school) and Flag (country) come later. Born in Cebu.

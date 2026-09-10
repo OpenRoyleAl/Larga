@@ -14,34 +14,100 @@
   <a href="https://f-droid.org/packages/com.termux/"><img alt="Termux" src="https://img.shields.io/badge/Termux-F--Droid_only-00E676?style=flat-square"></a>
 </p>
 
-# Larga
+# Larga — Cebu Ai Agent Cup
 
-Your phone. Your CloudFlare. Your agents.
+**A student tournament in Cebu, plus the kit that runs it.**
 
-**Larga** (*larga na*) = let’s go in Cebuano. **Cebu Ai Agent Cup** kit: Grid, Drive, Profile, Board, Tape.
+You already know APIs, HTTP, and deploying a service. Ai here is the same idea: you `POST` text in, you get text out. An **agent** is just your program calling that API (and maybe calling it again with the last answer). **Larga** is one CloudFlare Worker that lets you chain those calls from a phone, keeps score, and prints a resume companies can open.
 
-Pets optional ([Petdex](https://petdex.dev)). They move on the Board while Drive is running.
+*Larga na* = let’s go (Cebuano). Born in Cebu.
+
+**Live Cup:** [larga.alfred-89f.workers.dev](https://larga.alfred-89f.workers.dev)
+
+---
+
+## If you have never used Ai
+
+| Word you know | What we mean |
+|---|---|
+| HTTP API | An **Ai model** is a hosted function: prompt in, completion out. Groq, Google, CloudFlare Workers Ai, OpenRouter are vendors. |
+| API quota / prepaid credits | **Tokens.** When they run out you get `429`. Free student keys die. Make three accounts. |
+| Retry / failover | **Drive** tries the next vendor when one is busy or empty. |
+| Username | **Handle** (you can rename). Your real id never changes. |
+| Leaderboard | **Board.** Season 0 of the Cup. |
+| Portfolio / CV | **Tape.** One JSON file: GitHub + what you actually ran. |
+| Serverless function | A **Worker.** One `npm run deploy` = your copy of Larga. |
+
+You do **not** need to train a model. You call other people’s models with free keys. That is enough to enter the Cup.
+
+---
+
+## Why it is called a Cup
+
+**Cup = tournament.** Same as a football cup: a season, a table, later school and country brackets.
+
+| Season 0 (now) | Later |
+|---|---|
+| **Pilot vs Pilot** — you vs other students | **Crew** — school vs school |
+| Live **Board** | **Flag** — country vs country |
+| Enter by claiming a handle and running **Grid** | Dock / OJT berth for companies |
+
+### How you are ranked (Season 0)
+
+The Board sorts, in order:
+
+1. **Graphs** — how many times you actually ran a chain on Grid  
+2. **Failovers** — how many times Drive had to hop (a mint died, you kept going)  
+3. **Tokens out** — how much Ai you actually used  
+
+Pets, nicknames, and skins do **not** change rank. The **kettle** is shared sponsor quota (same rules for everyone), not a boost for 1st place.
+
+**How to enter:** open the [live Cup](https://larga.alfred-89f.workers.dev) → pick a handle → open Grid → add a node → run. You should appear on the Board. Tape (your CV) is at `/u/your-handle/tape`.
+
+Season dates / brackets: still being posted on [ROADMAP.md](ROADMAP.md). The table is already live. That is Season 0.
+
+---
 
 ## Need / skip
 
 | You want | You need | Skip |
 |---|---|---|
-| Free Student Ai tokens only | [RESOURCES.md](RESOURCES.md) | Omarchy, Larga, CloudFlare |
-| Agent laptop | [Omarchy](https://omarchy.org/) | Larga until you want the Cup |
-| Cup / Board / Tape | Larga + **1 CloudFlare deploy** | nothing if you already have tokens |
-| Android shell | **Termux from [F-Droid](https://f-droid.org/packages/com.termux/)** | Play Store Termux |
-| iPhone shell | — | Out of luck. Safari can still open Larga web. |
+| Free Ai keys only (no tournament) | [RESOURCES.md](RESOURCES.md) | Omarchy, Larga, CloudFlare |
+| A Linux laptop built for this | [Omarchy](https://omarchy.org/) | Larga until you want the Cup |
+| **Enter the Cup** / Board / Tape | Open the live URL, or **1 CloudFlare deploy** of your own | extra keys until Drive 429s |
+| Android terminal | **Termux from [F-Droid](https://f-droid.org/packages/com.termux/)** | Play Store Termux |
+| iPhone terminal | — | Out of luck. Safari can still open the Cup site. |
 
-## Free Student Ai
+---
 
-Straight to tokens: **[RESOURCES.md](RESOURCES.md)** — Groq, Google Ai Studio, OpenRouter, Pack, plus linked catalogs (verify dates).
+## The kit (what you are deploying)
 
-## Omarchy (laptop)
+| Piece | In IT terms |
+|---|---|
+| **Grid** | A tiny workflow: nodes = prompts, Run = call Drive |
+| **Drive** | Router: Workers Ai → Groq → OpenRouter → Gemini… hop on `429` / 5xx / empty. **401 does not** burn the next key |
+| **Profile** | Your Pilot page + Board row + Tape |
 
-Not a browser tab. App launcher name **Larga**. Hotkey **Super+L**.
+Optional pixel **pet** ([Petdex](https://petdex.dev)): moves on the Board only while Drive is actually running. Skin, not score.
 
-1. Install Omarchy: [omarchy.org](https://omarchy.org/) · [getting started](https://omarchy.org/manual/getting-started/)
-2. Deploy Larga once (below). Put the workers.dev URL in `~/.config/larga/url`
+---
+
+## Enter on a phone (fastest)
+
+1. Open https://larga.alfred-89f.workers.dev  
+2. Claim a handle  
+3. Browser menu → Add to Home Screen  
+4. **Grid** → + node → type a prompt → run all  
+5. Check **Board**
+
+---
+
+## Omarchy laptop (not a browser tab)
+
+App launcher name **Larga**. Hotkey **Super+L**.
+
+1. [Install Omarchy](https://omarchy.org/manual/getting-started/)  
+2. Put the Cup URL in `~/.config/larga/url`  
 3. From this repo:
 
 ```sh
@@ -49,7 +115,7 @@ chmod +x omarchy/install-app.sh omarchy/larga-app
 ./omarchy/install-app.sh
 ```
 
-Search **Larga** in the app go launcher. **Super+L** opens the app window (Chromium `--app`).
+---
 
 ## Android
 
@@ -60,20 +126,13 @@ pkg update && pkg upgrade
 pkg install tmux git
 ```
 
-## Phone / tablet (web)
+---
 
-Open your Larga URL → claim handle → Add to Home Screen → Grid.
+## Your own copy (1 CloudFlare deploy)
 
-## Live
+You can play on the shared Cup URL. Deploying means **your** Worker, **your** Board.
 
-https://larga.alfred-89f.workers.dev
-
-## 1 deploy on CloudFlare
-
-**Only this.** Repo root. `wrangler.jsonc`. `npm run deploy`.  
-`packages/` is source. Do not run wrangler inside `packages/` — those extra configs are gone.
-
-Runs on [CloudFlare Workers](https://developers.cloudflare.com/workers/). Free student tier is enough. One Worker = Grid + Drive + Profile.
+**Only this.** Repo root. `npm run deploy`. `packages/` is source.
 
 [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/OpenRoyleAl/Larga)
 
@@ -83,22 +142,24 @@ cd Larga
 npm install
 npx wrangler login
 npx wrangler d1 create larga
-# paste database_id into wrangler.jsonc  (repo root)
+# paste database_id into wrangler.jsonc (repo root)
 npx wrangler d1 migrations apply larga
 npm run deploy
 ```
 
-Then keep Drive fed: [RESOURCES.md](RESOURCES.md) → `wrangler secret put GROQ_API_KEY` (and friends). Drive hops on 429 / empty / 529. A 401 does not burn the next key.
+When Drive starts 429ing, add keys from [RESOURCES.md](RESOURCES.md):
 
-Catalogs we link (verify live): [Student-free-ai-packs](https://github.com/asbinthapa99/Student-free-ai-packs-) · [FreeLLMAPI](https://github.com/tashfeenahmed/freellmapi) (optional laptop `/v1`, not Larga).
+```sh
+npx wrangler secret put GROQ_API_KEY
+npx wrangler secret put OPENROUTER_API_KEY
+npx wrangler secret put GEMINI_API_KEY
+```
 
-GitHub has **Copy** on code blocks. Live site `/install` and `/resources` have **Copy** too.
+More catalogs (verify dates, don’t fork): [Student-free-ai-packs](https://github.com/asbinthapa99/Student-free-ai-packs-) · [FreeLLMAPI](https://github.com/tashfeenahmed/freellmapi) (optional laptop `/v1`, not the Cup).
 
-## Play (if you shipped Larga)
+GitHub has **Copy** on code blocks. Live `/install` and `/resources` have **Copy** too.
 
-Claim handle → Profile (GitHub / Cursor) → Grid → Board → Tape at `/u/your-name/tape`.
-
-Kettle = sponsor juice for the whole Board.
+---
 
 [Manifesto](MANIFESTO.md) · [Blueprint](BLUEPRINT.md) · [Roadmap](ROADMAP.md) · [Changelog](CHANGELOG.md)
 
