@@ -1,11 +1,17 @@
 # Changelog
 
+## 0.2.6 — 2026-09-10
+
+### Changed
+
+- Pilot login is a recovery code (`larga-…`), not the browser cookie. Cookie is a shortcut. Sign in at `/login`. Agent OpenRoyleAl ships the shared Cup with `npm run deploy:cup`.
+
 ## 0.2.5 — 2026-09-10
 
 ### Changed
 
 - Canonical Cup URL: https://larga.openroyleal.com (`workers.dev` stays as fallback).
-- Students `npm run deploy` without our hostname. Maintainers: `npm run deploy:cup`.
+- Students `npm run deploy` without our hostname. Agent OpenRoyleAl: `npm run deploy:cup`.
 - Grid reads the Pilot cookie (`/v1/whoami`). Prompts only — keys stay in Wrangler secrets.
 
 ## 0.2.4 — 2026-09-10

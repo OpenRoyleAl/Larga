@@ -10,6 +10,7 @@
 - [x] Kettle
 - [x] Phone / tablet / Omarchy install copy
 - [x] Live Cup URL: https://larga.openroyleal.com
+- [x] Recovery code login (Pilot survives a new phone)
 - [ ] Cup calendar / round dates in CHANGELOG
 
 ## Season 1 — Crew

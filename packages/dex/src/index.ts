@@ -1,8 +1,18 @@
 import { signTape } from "../../shared/src/certify";
 import { page } from "../../shared/src/hud";
 import { newUserId, normalizeHandle } from "../../shared/src/handle";
+import { hashLoginCode, newLoginCode, normalizeLoginCode } from "../../shared/src/login";
 import type { CertifyTape, PetPack, PetState } from "../../shared/src/types";
-import { boardPage, installPage, landing, profilePage, resourcesPage, rowHtml } from "./pages";
+import {
+  boardPage,
+  installPage,
+  landing,
+  loginPage,
+  profilePage,
+  resourcesPage,
+  rowHtml,
+  welcomePage,
+} from "./pages";
 
 export interface Env {
   DB: D1Database;
@@ -26,6 +36,7 @@ type UserRow = {
   hops: number;
   failovers: number;
   graphs: number;
+  login_hash: string | null;
 };
 
 function cookieUid(req: Request): string | null {
@@ -33,8 +44,36 @@ function cookieUid(req: Request): string | null {
   return m ? decodeURIComponent(m[1]) : null;
 }
 
-function setUid(id: string): string {
-  return `larga_uid=${encodeURIComponent(id)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=315360000`;
+function cookieFlags(req: Request): string {
+  const https = new URL(req.url).protocol === "https:";
+  return `Path=/; HttpOnly; SameSite=Lax${https ? "; Secure" : ""}`;
+}
+
+function setUid(id: string, req: Request): string {
+  return `larga_uid=${encodeURIComponent(id)}; ${cookieFlags(req)}; Max-Age=315360000`;
+}
+
+function clearUid(req: Request): string {
+  return `larga_uid=; ${cookieFlags(req)}; Max-Age=0`;
+}
+
+function setFlash(code: string, req: Request): string {
+  return `larga_rc=${encodeURIComponent(code)}; ${cookieFlags(req)}; Max-Age=600`;
+}
+
+function clearFlash(req: Request): string {
+  return `larga_rc=; ${cookieFlags(req)}; Max-Age=0`;
+}
+
+function flashCode(req: Request): string | null {
+  const m = req.headers.get("cookie")?.match(/(?:^|; )larga_rc=([^;]+)/);
+  return m ? decodeURIComponent(m[1]) : null;
+}
+
+function redirect(loc: string, cookies: string[] = []): Response {
+  const h = new Headers({ location: loc });
+  for (const c of cookies) h.append("Set-Cookie", c);
+  return new Response(null, { status: 303, headers: h });
 }
 
 function json(data: unknown, status = 200, headers?: HeadersInit): Response {
@@ -175,6 +214,25 @@ export async function fetchProfile(req: Request, env: Env): Promise<Response> {
       return json({ ok: true, app: "larga", cup: env.CUP_NAME });
     }
 
+    if (pathname === "/login" && req.method === "GET") {
+      return html(loginPage());
+    }
+
+    if (pathname === "/welcome") {
+      const uid = cookieUid(req);
+      const code = flashCode(req);
+      if (!uid || !code) {
+        return html(
+          loginPage("Recovery code already shown on this browser. Sign in if you saved it, or open Profile to mint a new one."),
+        );
+      }
+      const u = await userById(env, uid);
+      if (!u) return redirect("/");
+      const h = new Headers({ "content-type": "text/html; charset=utf-8" });
+      h.append("Set-Cookie", clearFlash(req));
+      return new Response(welcomePage(u.handle, code), { headers: h });
+    }
+
     if (pathname === "/v1/whoami" && req.method === "GET") {
       const uid = cookieUid(req);
       if (!uid) return json({ userId: null, handle: null });
@@ -190,7 +248,7 @@ export async function fetchProfile(req: Request, env: Env): Promise<Response> {
       return html(resourcesPage());
     }
 
-    if (pathname === "/" && req.method === "GET") {
+    if (pathname === "/" && (req.method === "GET" || req.method === "POST")) {
       const kettle = await env.DB.prepare(`SELECT remaining FROM kettle WHERE id = 1`).first<{ remaining: number }>();
       return html(landing(env.CUP_NAME, await boardRows(env), kettle?.remaining ?? 0));
     }
@@ -222,29 +280,53 @@ export async function fetchProfile(req: Request, env: Env): Promise<Response> {
     if (pathname === "/v1/claim" && req.method === "POST") {
       const f = await form(req);
       const handle = normalizeHandle(f.get("handle") || "");
-      if (!handle) return json({ error: "bad handle" }, 400);
+      if (!handle) return html(loginPage("Handle: 3–24 letters, numbers, dashes."), 400);
       const taken = await userByHandle(env, handle);
       let uid = cookieUid(req);
       if (uid && (await userById(env, uid))) {
-        return json({ error: "already claimed — rename on /me" }, 409);
+        return html(loginPage("This browser already has a Pilot. Sign in, or rename on Profile."), 409);
       }
-      if (taken) return json({ error: "handle taken" }, 409);
+      if (taken) return html(loginPage("That handle is taken. Pick another, or sign in."), 409);
       uid = newUserId();
+      const code = newLoginCode();
+      const loginHash = await hashLoginCode(code);
       const now = new Date().toISOString();
       await env.DB.prepare(
-        `INSERT INTO users (user_id, handle, created_at) VALUES (?, ?, ?)`,
+        `INSERT INTO users (user_id, handle, created_at, login_hash) VALUES (?, ?, ?, ?)`,
       )
-        .bind(uid, handle, now)
+        .bind(uid, handle, now, loginHash)
         .run();
       await env.DB.prepare(
         `INSERT INTO handle_history (user_id, handle, from_at) VALUES (?, ?, ?)`,
       )
         .bind(uid, handle, now)
         .run();
-      if (wantHtml(req) || (req.headers.get("content-type") || "").includes("form")) {
-        return new Response(null, { status: 302, headers: { location: "/me", "set-cookie": setUid(uid) } });
-      }
-      return json({ userId: uid, handle }, 201, { "set-cookie": setUid(uid) });
+      return redirect("/welcome", [setUid(uid, req), setFlash(code, req)]);
+    }
+
+    if (pathname === "/v1/login" && req.method === "POST") {
+      const f = await form(req);
+      const raw = f.get("code") || "";
+      if (!normalizeLoginCode(raw)) return html(loginPage("That does not look like a larga- recovery code."), 400);
+      const loginHash = await hashLoginCode(raw);
+      const u = await env.DB.prepare(`SELECT * FROM users WHERE login_hash = ?`).bind(loginHash).first<UserRow>();
+      if (!u) return html(loginPage("Unknown code. Check Notes / screenshot, or create a new Pilot."), 401);
+      return redirect("/me", [setUid(u.user_id, req)]);
+    }
+
+    if (pathname === "/v1/logout" && req.method === "POST") {
+      return redirect("/", [clearUid(req)]);
+    }
+
+    if (pathname === "/v1/recovery" && req.method === "POST") {
+      const uid = cookieUid(req);
+      if (!uid) return redirect("/login");
+      const u = await userById(env, uid);
+      if (!u) return redirect("/login");
+      const code = newLoginCode();
+      const loginHash = await hashLoginCode(code);
+      await env.DB.prepare(`UPDATE users SET login_hash = ? WHERE user_id = ?`).bind(loginHash, uid).run();
+      return redirect("/welcome", [setUid(uid, req), setFlash(code, req)]);
     }
 
     if (pathname === "/me" && req.method === "GET") {
@@ -264,6 +346,7 @@ export async function fetchProfile(req: Request, env: Env): Promise<Response> {
           petName: parsePet(u.pet_json)?.displayName,
           history: (hist.results || []).map((h) => h.handle),
           mine: true,
+          hasLogin: !!u.login_hash,
         }),
       );
     }
@@ -316,7 +399,7 @@ export async function fetchProfile(req: Request, env: Env): Promise<Response> {
         }),
       );
       if (wantHtml(req) || (req.headers.get("content-type") || "").includes("form")) {
-        return new Response(null, { status: 302, headers: { location: "/me" } });
+        return new Response(null, { status: 303, headers: { location: "/me" } });
       }
       return json({ handle, userId: uid });
     }
@@ -450,8 +533,8 @@ export async function fetchProfile(req: Request, env: Env): Promise<Response> {
     return json({ error: "not found" }, 404);
 }
 
-function html(s: string): Response {
-  return new Response(s, { headers: { "content-type": "text/html; charset=utf-8" } });
+function html(s: string, status = 200): Response {
+  return new Response(s, { status, headers: { "content-type": "text/html; charset=utf-8" } });
 }
 
 function escapePre(s: string): string {
@@ -460,7 +543,7 @@ function escapePre(s: string): string {
 
 function redirectOrJson(req: Request, loc: string, data: unknown): Response {
   if (wantHtml(req) || (req.headers.get("content-type") || "").includes("form")) {
-    return new Response(null, { status: 302, headers: { location: loc } });
+    return new Response(null, { status: 303, headers: { location: loc } });
   }
   return json(data);
 }

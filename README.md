@@ -62,7 +62,7 @@ The Board sorts, in order:
 
 Pets, nicknames, and skins do **not** change rank. The **kettle** is shared sponsor quota (same rules for everyone), not a boost for 1st place.
 
-**How to enter:** open the [live Cup](https://larga.openroyleal.com) → pick a handle → open Grid → add a node → run. You should appear on the Board. Tape (your CV) is at `/u/your-handle/tape`.
+**How to enter:** open the [live Cup](https://larga.openroyleal.com) → create a Pilot → **screenshot the recovery code** → Grid → run. Same code on a new phone is the same Pilot. Tape: `/u/your-handle/tape`.
 
 Season dates / brackets: still being posted on [ROADMAP.md](ROADMAP.md). The table is already live. That is Season 0.
 
@@ -95,10 +95,11 @@ Optional pixel **pet** ([Petdex](https://petdex.dev)): moves on the Board only w
 ## Enter on a phone (fastest)
 
 1. Open https://larga.openroyleal.com  
-2. Claim a handle (no API key)  
-3. Browser menu → Add to Home Screen  
-4. **Grid** → + node → type a prompt → run all  
-5. Check **Board**
+2. Create a Pilot (no API key)  
+3. Screenshot the `larga-…` recovery code (that **is** your login)  
+4. Browser menu → Add to Home Screen  
+5. **Grid** → + node → type a prompt → run all  
+6. Check **Board**. New phone later: [Sign in](https://larga.openroyleal.com/login) with the code.
 
 ---
 
