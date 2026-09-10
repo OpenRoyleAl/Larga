@@ -35,7 +35,15 @@ export default {
     };
     const path = new URL(req.url).pathname;
     if ((path === "/og.jpg" || path === "/og.png") && env.ASSETS) {
-      return env.ASSETS.fetch(req);
+      const asset = await env.ASSETS.fetch(req);
+      const headers = new Headers(asset.headers);
+      headers.set("Cache-Control", "public, max-age=86400");
+      return new Response(asset.body, { status: asset.status, headers });
+    }
+    if (path === "/robots.txt") {
+      return new Response("User-agent: *\nAllow: /\n", {
+        headers: { "content-type": "text/plain; charset=utf-8" },
+      });
     }
     if (path === "/v1/complete" || path === "/drive/health") {
       return fetchDrive(req, wired);

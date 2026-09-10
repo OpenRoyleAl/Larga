@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.9 — 2026-09-10
+
+### Changed
+
+- Put Open Graph tags inside `<head>` so Facebook’s scraper sees `/og.jpg` (iMessage already did).
+
 ## 0.2.8 — 2026-09-10
 
 ### Changed
