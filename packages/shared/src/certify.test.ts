@@ -1,13 +1,18 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { signTape, verifyTape, canonical } from "./certify.ts";
-import { normalizeHandle } from "./handle.ts";
+import { handleFromLogin, normalizeHandle } from "./handle.ts";
 import { shouldFailover, route, messagesFrom } from "./route.ts";
 
 test("handle accepts student nicknames", () => {
   assert.equal(normalizeHandle("Drive-Goblin"), "drive-goblin");
   assert.equal(normalizeHandle("x"), null);
   assert.equal(normalizeHandle("Suki_sa_molo"), null);
+});
+
+test("handleFromLogin slugs github names", () => {
+  assert.equal(handleFromLogin("Drive-Goblin", "1"), "drive-goblin");
+  assert.ok(handleFromLogin("ab", "deadbeef01"));
 });
 
 test("canonical drops signature and sorts keys", () => {

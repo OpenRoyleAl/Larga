@@ -1,7 +1,7 @@
 import { escapeHtml, page, snip } from "../../shared/src/hud";
 import type { PetPack, PetState } from "../../shared/src/types";
 
-export function landing(cup: string, boardHtml: string, kettle: number): string {
+export function landing(cup: string, boardHtml: string, kettle: number, oauthHtml: string): string {
   return page(
     "Larga",
     `
@@ -10,7 +10,7 @@ export function landing(cup: string, boardHtml: string, kettle: number): string 
     <h1>Larga</h1>
     <span>${escapeHtml(cup)}</span>
   </header>
-  <p class="tag"><em>Larga na</em> — let’s go. Season 0 is a <strong>tournament</strong>: Pilot vs Pilot on the Board. No API keys to start — Workers Ai is already on. Pick a handle, <strong>save your recovery code</strong>, run Grid. Same code on a new phone = same Pilot.</p>
+  <p class="tag">A <strong>student Ai tournament</strong> in Cebu. Sign in, run prompts on Grid, climb the Board. One CloudFlare Worker. No API keys to start. Born in Cebu.</p>
   <nav>
     <a href="/install">Install</a>
     <a href="/resources">Free Ai</a>
@@ -21,28 +21,31 @@ export function landing(cup: string, boardHtml: string, kettle: number): string 
     <a href="/certify">Tape</a>
   </nav>
   <div class="panel">
-    <p class="meta">Need / skip</p>
-    <p>Tokens only → <a href="/resources">Free Student Ai</a> (skip Larga). Keep keys off GitHub and off Grid.</p>
-    <p>Laptop → Omarchy, then Super+L app named Larga.</p>
-    <p>Enter the Cup → claim a handle, save the recovery code, then <a href="/grid">Grid</a>.</p>
-    <p>Already a Pilot → <a href="/login">sign in</a> with that code (cleared cookies / new phone).</p>
-    <p>Android shell → Termux on F-Droid. iPhone shell → out of luck.</p>
+    <strong>Play</strong>
+    <p class="meta">GitHub or Google is your account. Same login on a new phone. We never see your password.</p>
+    ${oauthHtml || "<p class=\"meta\">Sign-in providers are still being attached to this Cup host.</p>"}
   </div>
   <div class="panel">
-    <strong>New Pilot</strong>
-    <p class="meta">Handle is your public name. You will get a recovery code next — that code is your login. Screenshot it. Notes app. Paper. We cannot email it back.</p>
+    <p class="meta">Need / skip</p>
+    <p>Tokens only → <a href="/resources">Free Student Ai</a>.</p>
+    <p>Your own Worker → <a href="/install">Install</a>.</p>
+    <p>Android shell → Termux on F-Droid. iPhone shell → Safari still works.</p>
+  </div>
+  <details class="panel">
+    <summary>Handle only (no Google / GitHub)</summary>
+    <p class="meta">You must screenshot the recovery code. Lost code + lost phone = gone.</p>
     <form method="post" action="/v1/claim" class="row">
       <input name="handle" placeholder="suki-sa-molo" required minlength="3" maxlength="24">
       <button type="submit">Create Pilot</button>
     </form>
-    <p class="meta"><a href="/login">I already have a recovery code</a></p>
-  </div>
+    <p class="meta"><a href="/login">I have a recovery code</a></p>
+  </details>
   ${kettle > 0 ? `<div class="panel">
     <p class="meta">Sponsor kettle — extra Ai juice anyone on the Board can sip. Same rules for every Pilot.</p>
     <p class="rank">${kettle} units left</p>
   </div>` : ""}
   <h2>Cup Board — Season 0</h2>
-  <p class="meta">Rank: graphs run, then failovers (Drive hops), then tokens. Pets are skins.</p>
+  <p class="meta">Rank: graphs run, then failovers, then tokens. Pets are skins.</p>
   ${boardHtml}
   <footer>Larga · OpenRoyleAl · Born in Cebu · ${escapeHtml(cup)}</footer>
 </div>`,
@@ -69,21 +72,25 @@ export function welcomePage(handle: string, code: string): string {
   );
 }
 
-export function loginPage(err?: string): string {
+export function loginPage(err?: string, oauthHtml = ""): string {
   return page(
     "Sign in · Larga",
     `
 <div class="wrap">
-  <header class="brand"><h1>Sign in</h1><span>recovery code</span></header>
-  <p class="tag">Same Pilot on a new device. Paste the <code>larga-…</code> code you saved when you created the handle.</p>
+  <header class="brand"><h1>Sign in</h1><span>your account</span></header>
+  <p class="tag">Same Pilot on a new phone. GitHub or Google — we never see your password.</p>
   ${err ? `<p class="meta" style="color:var(--fail)">${escapeHtml(err)}</p>` : ""}
   <div class="panel">
+    ${oauthHtml || "<p class=\"meta\">Providers not wired on this host.</p>"}
+  </div>
+  <details class="panel">
+    <summary>Recovery code instead</summary>
     <form method="post" action="/v1/login">
       <textarea name="code" required placeholder="larga-xxxx-xxxx-…" autocomplete="off"></textarea>
-      <button type="submit">Sign in</button>
+      <button type="submit">Sign in with code</button>
     </form>
-  </div>
-  <p class="meta"><a href="/">New Pilot</a> · lost the code and still have this browser’s cookie → <a href="/me">Profile</a> and mint a new code (the old one dies).</p>
+  </details>
+  <p class="meta"><a href="/">Home</a></p>
 </div>`,
   );
 }

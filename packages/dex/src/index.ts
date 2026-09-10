@@ -3,6 +3,7 @@ import { page } from "../../shared/src/hud";
 import { newUserId, normalizeHandle } from "../../shared/src/handle";
 import { hashLoginCode, newLoginCode, normalizeLoginCode } from "../../shared/src/login";
 import type { CertifyTape, PetPack, PetState } from "../../shared/src/types";
+import { fetchOauth, oauthButtons } from "./oauth";
 import {
   boardPage,
   installPage,
@@ -20,6 +21,10 @@ export interface Env {
   CUP_NAME: string;
   CERT_SECRET: string;
   SERVICE_SECRET: string;
+  GITHUB_CLIENT_ID?: string;
+  GITHUB_CLIENT_SECRET?: string;
+  GOOGLE_CLIENT_ID?: string;
+  GOOGLE_CLIENT_SECRET?: string;
 }
 
 type UserRow = {
@@ -37,6 +42,9 @@ type UserRow = {
   failovers: number;
   graphs: number;
   login_hash: string | null;
+  github_id?: string | null;
+  google_sub?: string | null;
+  email?: string | null;
 };
 
 function cookieUid(req: Request): string | null {
@@ -210,12 +218,21 @@ export async function fetchProfile(req: Request, env: Env): Promise<Response> {
     const url = new URL(req.url);
     const { pathname } = url;
 
+    const oauth = await fetchOauth(req, env, {
+      cookieUid: cookieUid(req),
+      setUid: (id) => setUid(id, req),
+      redirect,
+    });
+    if (oauth) return oauth;
+
+    const oauthHtml = oauthButtons(env);
+
     if (pathname === "/health") {
       return json({ ok: true, app: "larga", cup: env.CUP_NAME });
     }
 
     if (pathname === "/login" && req.method === "GET") {
-      return html(loginPage());
+      return html(loginPage(undefined, oauthHtml));
     }
 
     if (pathname === "/welcome") {
@@ -223,7 +240,7 @@ export async function fetchProfile(req: Request, env: Env): Promise<Response> {
       const code = flashCode(req);
       if (!uid || !code) {
         return html(
-          loginPage("Recovery code already shown on this browser. Sign in if you saved it, or open Profile to mint a new one."),
+          loginPage("Recovery code already shown on this browser. Sign in if you saved it, or open Profile to mint a new one.", oauthHtml),
         );
       }
       const u = await userById(env, uid);
@@ -250,7 +267,7 @@ export async function fetchProfile(req: Request, env: Env): Promise<Response> {
 
     if (pathname === "/" && (req.method === "GET" || req.method === "POST")) {
       const kettle = await env.DB.prepare(`SELECT remaining FROM kettle WHERE id = 1`).first<{ remaining: number }>();
-      return html(landing(env.CUP_NAME, await boardRows(env), kettle?.remaining ?? 0));
+      return html(landing(env.CUP_NAME, await boardRows(env), kettle?.remaining ?? 0, oauthHtml));
     }
 
     if (pathname === "/board" && req.method === "GET") {
@@ -280,13 +297,13 @@ export async function fetchProfile(req: Request, env: Env): Promise<Response> {
     if (pathname === "/v1/claim" && req.method === "POST") {
       const f = await form(req);
       const handle = normalizeHandle(f.get("handle") || "");
-      if (!handle) return html(loginPage("Handle: 3–24 letters, numbers, dashes."), 400);
+      if (!handle) return html(loginPage("Handle: 3–24 letters, numbers, dashes.", oauthHtml), 400);
       const taken = await userByHandle(env, handle);
       let uid = cookieUid(req);
       if (uid && (await userById(env, uid))) {
-        return html(loginPage("This browser already has a Pilot. Sign in, or rename on Profile."), 409);
+        return html(loginPage("This browser already has a Pilot. Sign in, or rename on Profile.", oauthHtml), 409);
       }
-      if (taken) return html(loginPage("That handle is taken. Pick another, or sign in."), 409);
+      if (taken) return html(loginPage("That handle is taken. Pick another, or sign in.", oauthHtml), 409);
       uid = newUserId();
       const code = newLoginCode();
       const loginHash = await hashLoginCode(code);
@@ -307,10 +324,10 @@ export async function fetchProfile(req: Request, env: Env): Promise<Response> {
     if (pathname === "/v1/login" && req.method === "POST") {
       const f = await form(req);
       const raw = f.get("code") || "";
-      if (!normalizeLoginCode(raw)) return html(loginPage("That does not look like a larga- recovery code."), 400);
+      if (!normalizeLoginCode(raw)) return html(loginPage("That does not look like a larga- recovery code.", oauthHtml), 400);
       const loginHash = await hashLoginCode(raw);
       const u = await env.DB.prepare(`SELECT * FROM users WHERE login_hash = ?`).bind(loginHash).first<UserRow>();
-      if (!u) return html(loginPage("Unknown code. Check Notes / screenshot, or create a new Pilot."), 401);
+      if (!u) return html(loginPage("Unknown code. Check Notes / screenshot, or create a new Pilot.", oauthHtml), 401);
       return redirect("/me", [setUid(u.user_id, req)]);
     }
 

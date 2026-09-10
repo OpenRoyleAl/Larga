@@ -16,6 +16,8 @@
 
 # Larga — Cebu Ai Agent Cup
 
+![Larga — Cebu Ai Agent Cup. Student Ai tournament. Sign in, chain prompts, climb the Board. One CloudFlare Worker. Born in Cebu.](https://larga.openroyleal.com/og.jpg)
+
 **A student tournament in Cebu, plus the kit that runs it.**
 
 You already know APIs, HTTP, and deploying a service. Ai here is the same idea: you `POST` text in, you get text out. An **agent** is just your program calling that API (and maybe calling it again with the last answer). **Larga** is one CloudFlare Worker that lets you chain those calls from a phone, keeps score, and prints a resume companies can open.
@@ -62,7 +64,7 @@ The Board sorts, in order:
 
 Pets, nicknames, and skins do **not** change rank. The **kettle** is shared sponsor quota (same rules for everyone), not a boost for 1st place.
 
-**How to enter:** open the [live Cup](https://larga.openroyleal.com) → create a Pilot → **screenshot the recovery code** → Grid → run. Same code on a new phone is the same Pilot. Tape: `/u/your-handle/tape`.
+**How to enter:** open [larga.openroyleal.com](https://larga.openroyleal.com) → Continue with GitHub or Google → Grid → run. Tape: `/u/your-handle/tape`.
 
 Season dates / brackets: still being posted on [ROADMAP.md](ROADMAP.md). The table is already live. That is Season 0.
 
@@ -95,11 +97,10 @@ Optional pixel **pet** ([Petdex](https://petdex.dev)): moves on the Board only w
 ## Enter on a phone (fastest)
 
 1. Open https://larga.openroyleal.com  
-2. Create a Pilot (no API key)  
-3. Screenshot the `larga-…` recovery code (that **is** your login)  
-4. Browser menu → Add to Home Screen  
-5. **Grid** → + node → type a prompt → run all  
-6. Check **Board**. New phone later: [Sign in](https://larga.openroyleal.com/login) with the code.
+2. Continue with GitHub or Google (that **is** your account)  
+3. Browser menu → Add to Home Screen  
+4. **Grid** → + node → type a prompt → run all  
+5. Check **Board**
 
 ---
 

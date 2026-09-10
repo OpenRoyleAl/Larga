@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.7 — 2026-09-10
+
+### Changed
+
+- Share card (title, description, `/og.jpg`) explains the Cup without a pitch.
+- Sign in with GitHub or Google on the shared host (OAuth). Handle+code remains a fallback.
+
 ## 0.2.6 — 2026-09-10
 
 ### Changed

@@ -18,6 +18,11 @@ export interface Env {
   OPENROUTER_API_KEY?: string;
   OPENAI_API_KEY?: string;
   GEMINI_API_KEY?: string;
+  GITHUB_CLIENT_ID?: string;
+  GITHUB_CLIENT_SECRET?: string;
+  GOOGLE_CLIENT_ID?: string;
+  GOOGLE_CLIENT_SECRET?: string;
+  ASSETS?: Fetcher;
 }
 
 export default {
@@ -29,6 +34,9 @@ export default {
       DEX_URL: env.DEX_URL || origin,
     };
     const path = new URL(req.url).pathname;
+    if ((path === "/og.jpg" || path === "/og.png") && env.ASSETS) {
+      return env.ASSETS.fetch(req);
+    }
     if (path === "/v1/complete" || path === "/drive/health") {
       return fetchDrive(req, wired);
     }

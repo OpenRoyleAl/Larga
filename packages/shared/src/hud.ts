@@ -41,7 +41,7 @@ button, .btn {
   background: var(--jeep); color: #140800; border: 0; font-weight: 700;
   cursor: pointer; text-decoration: none; display: inline-block;
 }
-button.ghost { background: transparent; color: var(--hud); border: 1px solid var(--hud); }
+button.ghost, a.btn.ghost { background: transparent; color: var(--hud); border: 1px solid var(--hud); }
 .pilot { display: grid; grid-template-columns: 56px 1fr auto; gap: .75rem; align-items: center;
   padding: .6rem 0; border-bottom: 1px solid #22283a; }
 .pet {
@@ -63,16 +63,39 @@ nav a { margin-right: 1rem; }
 .nodes { display: flex; flex-direction: column; gap: .5rem; }
 .node { border-left: 3px solid var(--hud); padding-left: .6rem; }
 pre { white-space: pre-wrap; word-break: break-word; font-size: .8rem; color: var(--ok); }
-footer { margin-top: 2rem; color: var(--dim); font-size: .75rem; }
+details.panel summary { cursor: pointer; color: var(--chrome); font-weight: 700; }
+details.panel[open] summary { margin-bottom: .75rem; }
 @media (max-width: 480px) { .brand h1 { font-size: 1.1rem; letter-spacing: .12em; } }
 `;
 
+export const SITE_URL = "https://larga.openroyleal.com";
+export const SITE_TITLE = "Larga — Cebu Ai Agent Cup";
+export const SITE_DESC =
+  "Student Ai tournament in Cebu. Sign in with GitHub or Google, run prompts on Grid, climb the Board. One CloudFlare Worker. Free to play. Born in Cebu.";
+
 export function page(title: string, body: string, extraHead = ""): string {
+  const shareTitle = title === "Larga" || title.startsWith("Larga —") ? SITE_TITLE : `${title}`;
+  const og = `<meta name="description" content="${escapeHtml(SITE_DESC)}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Larga">
+<meta property="og:title" content="${escapeHtml(shareTitle)}">
+<meta property="og:description" content="${escapeHtml(SITE_DESC)}">
+<meta property="og:url" content="${SITE_URL}">
+<meta property="og:image" content="${SITE_URL}/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="${escapeHtml(SITE_DESC)}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${escapeHtml(shareTitle)}">
+<meta name="twitter:description" content="${escapeHtml(SITE_DESC)}">
+<meta name="twitter:image" content="${SITE_URL}/og.jpg">
+<link rel="canonical" href="${SITE_URL}">`;
   return `<!doctype html>
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${escapeHtml(title)}</title>
+<title>${escapeHtml(shareTitle)}</title>
+${og}
 <style>${HUD_CSS}</style>
 ${extraHead}
 <body>
