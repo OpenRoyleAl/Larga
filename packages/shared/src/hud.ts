@@ -65,7 +65,12 @@ nav a { margin-right: 1rem; }
 pre { white-space: pre-wrap; word-break: break-word; font-size: .8rem; color: var(--ok); }
 details.panel summary { cursor: pointer; color: var(--chrome); font-weight: 700; }
 details.panel[open] summary { margin-bottom: .75rem; }
-@media (max-width: 480px) { .brand h1 { font-size: 1.1rem; letter-spacing: .12em; } }
+.hero { max-width: 880px; margin: 0 auto; padding: .75rem .75rem 0; }
+.hero img {
+  width: 100%; height: auto; display: block;
+  border: 2px solid var(--chrome);
+  box-shadow: 0 0 24px rgba(232, 93, 4, .25);
+}
 `;
 
 export const SITE_URL = "https://larga.openroyleal.com";

@@ -6,6 +6,9 @@ export function landing(cup: string, boardHtml: string, kettle: number, oauthHtm
   return page(
     "Larga",
     `
+<div class="hero">
+  <img src="/og.jpg?v=2" width="1200" height="630" alt="Larga — Cebu Ai Agent Cup. Student Ai tournament. Chain prompts. One CloudFlare Worker. Born in Cebu.">
+</div>
 <div class="wrap">
   <header class="brand">
     <h1>Larga</h1>
@@ -100,6 +103,9 @@ export function installPage(cup: string, oauthHtml: string): string {
   return page(
     "Install Larga",
     `
+<div class="hero">
+  <img src="/og.jpg?v=2" width="1200" height="630" alt="Larga — Cebu Ai Agent Cup">
+</div>
 <div class="wrap">
   <header class="brand">
     <h1>Larga</h1>

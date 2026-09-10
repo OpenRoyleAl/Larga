@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.10 — 2026-09-10
+
+### Changed
+
+- Homepage and /install use the share graphic as the hero.
+
 ## 0.2.9 — 2026-09-10
 
 ### Changed
