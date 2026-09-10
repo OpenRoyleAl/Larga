@@ -175,6 +175,13 @@ export async function fetchProfile(req: Request, env: Env): Promise<Response> {
       return json({ ok: true, app: "larga", cup: env.CUP_NAME });
     }
 
+    if (pathname === "/v1/whoami" && req.method === "GET") {
+      const uid = cookieUid(req);
+      if (!uid) return json({ userId: null, handle: null });
+      const u = await userById(env, uid);
+      return json({ userId: uid, handle: u?.handle ?? null });
+    }
+
     if (pathname === "/install" && req.method === "GET") {
       return html(installPage(env.CUP_NAME));
     }

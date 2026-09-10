@@ -22,7 +22,7 @@ You already know APIs, HTTP, and deploying a service. Ai here is the same idea: 
 
 *Larga na* = let’s go (Cebuano). Born in Cebu.
 
-**Live Cup:** [larga.alfred-89f.workers.dev](https://larga.alfred-89f.workers.dev)
+**Live Cup:** [larga.openroyleal.com](https://larga.openroyleal.com)
 
 ---
 
@@ -62,7 +62,7 @@ The Board sorts, in order:
 
 Pets, nicknames, and skins do **not** change rank. The **kettle** is shared sponsor quota (same rules for everyone), not a boost for 1st place.
 
-**How to enter:** open the [live Cup](https://larga.alfred-89f.workers.dev) → pick a handle → open Grid → add a node → run. You should appear on the Board. Tape (your CV) is at `/u/your-handle/tape`.
+**How to enter:** open the [live Cup](https://larga.openroyleal.com) → pick a handle → open Grid → add a node → run. You should appear on the Board. Tape (your CV) is at `/u/your-handle/tape`.
 
 Season dates / brackets: still being posted on [ROADMAP.md](ROADMAP.md). The table is already live. That is Season 0.
 
@@ -94,8 +94,8 @@ Optional pixel **pet** ([Petdex](https://petdex.dev)): moves on the Board only w
 
 ## Enter on a phone (fastest)
 
-1. Open https://larga.alfred-89f.workers.dev  
-2. Claim a handle  
+1. Open https://larga.openroyleal.com  
+2. Claim a handle (no API key)  
 3. Browser menu → Add to Home Screen  
 4. **Grid** → + node → type a prompt → run all  
 5. Check **Board**
@@ -107,8 +107,7 @@ Optional pixel **pet** ([Petdex](https://petdex.dev)): moves on the Board only w
 App launcher name **Larga**. Hotkey **Super+L**.
 
 1. [Install Omarchy](https://omarchy.org/manual/getting-started/)  
-2. Put the Cup URL in `~/.config/larga/url`  
-3. From this repo:
+2. From this repo (writes the shared Cup URL; change `~/.config/larga/url` only for your own Worker):
 
 ```sh
 chmod +x omarchy/install-app.sh omarchy/larga-app
@@ -130,9 +129,9 @@ pkg install tmux git
 
 ## Your own copy (1 CloudFlare deploy)
 
-You can play on the shared Cup URL. Deploying means **your** Worker, **your** Board.
+You can play on the shared Cup with **no keys**. Deploying means **your** Worker, **your** Board.
 
-**Only this.** Repo root. `npm run deploy`. `packages/` is source.
+**Only this.** Repo root. `npm run deploy`. `packages/` is source. Do not add `larga.openroyleal.com` to wrangler — that hostname is the shared Cup.
 
 [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/OpenRoyleAl/Larga)
 
@@ -147,13 +146,15 @@ npx wrangler d1 migrations apply larga
 npm run deploy
 ```
 
-When Drive starts 429ing, add keys from [RESOURCES.md](RESOURCES.md):
+When Drive starts 429ing, add keys from [RESOURCES.md](RESOURCES.md) with **`wrangler secret put` only**:
 
 ```sh
 npx wrangler secret put GROQ_API_KEY
 npx wrangler secret put OPENROUTER_API_KEY
 npx wrangler secret put GEMINI_API_KEY
 ```
+
+**Safe:** the secret stays on CloudFlare. **Not safe:** pasting a key into Grid, GitHub, Discord, a screenshot, or any file you `git add`. If it leaked, revoke it and mint a new one.
 
 More catalogs (verify dates, don’t fork): [Student-free-ai-packs](https://github.com/asbinthapa99/Student-free-ai-packs-) · [FreeLLMAPI](https://github.com/tashfeenahmed/freellmapi) (optional laptop `/v1`, not the Cup).
 

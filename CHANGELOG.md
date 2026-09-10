@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.5 — 2026-09-10
+
+### Changed
+
+- Canonical Cup URL: https://larga.openroyleal.com (`workers.dev` stays as fallback).
+- Students `npm run deploy` without our hostname. Maintainers: `npm run deploy:cup`.
+- Grid reads the Pilot cookie (`/v1/whoami`). Prompts only — keys stay in Wrangler secrets.
+
 ## 0.2.4 — 2026-09-10
 
 ### Changed

@@ -11,8 +11,8 @@ install -m 0755 "$ROOT/larga-app" "$BIN/larga-app"
 install -m 0644 "$ROOT/larga.desktop" "$APP/larga.desktop"
 install -m 0644 "$ROOT/hypr-larga.conf" "$HYPR/larga.conf"
 if [ ! -f "$CFG/url" ]; then
-  echo "https://YOUR-LARGA.workers.dev" > "$CFG/url"
-  echo "Edit $CFG/url — your CloudFlare workers.dev URL after deploy."
+  echo "https://larga.openroyleal.com" > "$CFG/url"
+  echo "Cup URL written to $CFG/url — change it only if you deployed your own Worker."
 fi
 if [ -f "$HYPR/hyprland.conf" ] && ! grep -q 'hypr/larga.conf' "$HYPR/hyprland.conf"; then
   printf '\nsource = %s/larga.conf\n' "$HYPR" >> "$HYPR/hyprland.conf"

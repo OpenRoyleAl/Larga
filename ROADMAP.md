@@ -9,7 +9,7 @@
 - [x] Live Board + optional pet
 - [x] Kettle
 - [x] Phone / tablet / Omarchy install copy
-- [x] Live Cup URL: https://larga.alfred-89f.workers.dev
+- [x] Live Cup URL: https://larga.openroyleal.com
 - [ ] Cup calendar / round dates in CHANGELOG
 
 ## Season 1 — Crew

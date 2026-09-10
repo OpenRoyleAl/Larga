@@ -10,6 +10,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
+    "deploy:cup": "wrangler deploy --domains larga.openroyleal.com",
     "db": "wrangler d1 migrations apply larga --local",
     "db:remote": "wrangler d1 migrations apply larga"
   },

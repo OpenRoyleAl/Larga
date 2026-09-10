@@ -2,7 +2,21 @@
 
 Skip Larga. Skip Omarchy. This page is the tokens.
 
+Play the shared Cup at [larga.openroyleal.com](https://larga.openroyleal.com) with **no keys**. Workers Ai is already on.
+
 Quotas die. Make three accounts. When one naps, use the next.
+
+## Keep keys safe
+
+A token is a password for Ai.
+
+| Do | Don’t |
+|---|---|
+| `npx wrangler secret put GROQ_API_KEY` on **your** Worker | Paste keys into Grid, Discord, GitHub, a screenshot, or `.dev.vars` you might commit |
+| Play the shared Cup first (our kettle, no student keys) | Put your Groq/Gemini key on the shared Cup — there is nowhere to paste it, on purpose |
+| Revoke + mint new if it leaked | Share a key with a classmate “just this once” |
+
+`.dev.vars` is gitignored and is for **local fake secrets** (`CERT_SECRET`), not vendor API keys you care about.
 
 ## Catalogs (trust but verify)
 

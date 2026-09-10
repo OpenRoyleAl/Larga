@@ -79,9 +79,9 @@ function ui(driveSet: boolean): string {
 </header>
 <div class="wrap">
   <p class="tag">Add a node. Type a prompt. Run. Your pet on the Board moves while Drive is working.</p>
-  <p class="meta">Drive ${driveSet ? "ready" : "still waking up"}</p>
+  <p class="meta">Drive ${driveSet ? "ready" : "still waking up"} · Prompts only — never paste an API key here.</p>
+  <p class="meta" id="who">Checking your Pilot… <a href="/">claim a handle</a> if this is your first run.</p>
   <div class="row">
-    <input id="uid" placeholder="your Larga id (Profile page)" style="flex:1">
     <button type="button" id="add">+ node</button>
     <button type="button" id="run" class="ghost">run all</button>
   </div>
@@ -91,12 +91,26 @@ function ui(driveSet: boolean): string {
 <script>
 const gid = localStorage.largaGraph || (localStorage.largaGraph = crypto.randomUUID());
 document.getElementById('gid').textContent = gid;
-document.getElementById('uid').value = localStorage.largaUserId || '';
+let userId = localStorage.largaUserId || '';
 let nodes = [];
+(async () => {
+  try {
+    const me = await fetch('/v1/whoami').then(r => r.json());
+    if (me.userId) {
+      userId = me.userId;
+      localStorage.largaUserId = userId;
+      document.getElementById('who').innerHTML = me.handle
+        ? ('Pilot <strong>' + me.handle + '</strong> — ranked on the <a href="/board">Board</a>.')
+        : 'Pilot linked. Run a node to show on the Board.';
+    } else {
+      document.getElementById('who').innerHTML = 'No handle yet. <a href="/">Claim one</a> (takes 10 seconds), then come back.';
+    }
+  } catch (e) {}
+})();
 function render() {
   document.getElementById('nodes').innerHTML = nodes.map((n,i) => \`
     <div class="node panel">
-      <textarea data-i="\${i}">\${n.prompt || ''}</textarea>
+      <textarea data-i="\${i}" placeholder="Ask anything. Not a password. Not an API key.">\${n.prompt || ''}</textarea>
       <p class="meta">\${n.provider || ''} \${n.id}</p>
       <pre>\${n.output ? n.output : ''}</pre>
     </div>\`).join('');
@@ -116,10 +130,10 @@ document.getElementById('add').onclick = () => {
   render(); save();
 };
 document.getElementById('run').onclick = async () => {
-  localStorage.largaUserId = document.getElementById('uid').value;
+  if (!userId) { location.href = '/'; return; }
   await save();
   const r = await fetch('/api/graphs/' + gid + '/run', { method: 'POST', headers: {'content-type':'application/json'},
-    body: JSON.stringify({ userId: document.getElementById('uid').value || undefined }) });
+    body: JSON.stringify({ userId }) });
   const j = await r.json();
   nodes = j.nodes || nodes;
   render();
