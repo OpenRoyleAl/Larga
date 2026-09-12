@@ -164,20 +164,23 @@ export function resourcesPage(): string {
     <h1>Larga</h1>
     <span>Free Student Ai</span>
   </header>
-  <p class="tag">Play the Cup at <a href="https://larga.openroyleal.com">larga.openroyleal.com</a> with no keys. Skip Larga if you only want tokens. Live list: repo <a href="https://github.com/OpenRoyleAl/Larga/blob/main/RESOURCES.md">RESOURCES.md</a>. Extra catalogs (verify): <a href="https://github.com/asbinthapa99/Student-free-ai-packs-">Student packs</a> · <a href="https://github.com/tashfeenahmed/freellmapi">FreeLLMAPI</a>.</p>
+  <p class="tag"><strong>Use it or lose them.</strong> Free quotas nap and reset. Step 0: play the Cup at <a href="https://larga.openroyleal.com">larga.openroyleal.com</a> with <strong>0 keys</strong> — Workers Ai is already on. Full guide: repo <a href="https://github.com/OpenRoyleAl/Larga/blob/main/RESOURCES.md">RESOURCES.md</a> · optional laptop <a href="https://github.com/OpenRoyleAl/Larga/blob/main/docs/free-llm-api.md">FreeLLMAPI</a>.</p>
+  <div class="panel">
+    <h2>Step 0 — 0 keys</h2>
+    <p class="meta">Shared Cup = CloudFlare Workers Ai kettle. No paste box for your vendor keys — on purpose.</p>
+  </div>
   <div class="panel">
     <h2>Keep keys safe</h2>
     <p>A token is a password for Ai. Treat it like one.</p>
-    <p class="meta">Play on the shared Cup first — you do not paste keys there. Own Worker: <code>npx wrangler secret put …</code> only. Never git, Discord, Grid prompts, or screenshots. Leaked? Revoke it on the vendor site and mint a new one.</p>
+    <p class="meta">Your Worker only: <code>npx wrangler secret put …</code>. Never git, Discord, Grid prompts, screenshots, or <code>.dev.vars</code> for real vendor keys. Leaked? Revoke + mint. 401 stops Drive hop — fix the dead key before the next mint.</p>
   </div>
   <div class="panel">
-    <p><a href="https://console.groq.com/">Groq</a> · <a href="https://aistudio.google.com/apikey">Google Ai Studio</a> · <a href="https://openrouter.ai/">OpenRouter</a> · <a href="https://huggingface.co/settings/tokens">Hugging Face</a></p>
-    <p><a href="https://education.github.com/pack">GitHub Student Pack</a> · <a href="https://cloud.cerebras.ai/">Cerebras</a> · <a href="https://cloud.sambanova.ai/">SambaNova</a> · <a href="https://console.mistral.ai/">Mistral</a> · <a href="https://github.com/marketplace/models">GitHub Models</a></p>
-    <p>CloudFlare Workers Ai ships with a Larga deploy (no extra key).</p>
-  </div>
-  <div class="panel">
-    <h2>Keep Larga Drive alive</h2>
+    <h2>Step 2 — wired hops</h2>
     ${snip("secrets", "npx wrangler secret put GROQ_API_KEY\nnpx wrangler secret put OPENROUTER_API_KEY\nnpx wrangler secret put GEMINI_API_KEY")}
+    <p class="meta">Step 3 mints (HF, Cerebras, SambaNova, Mistral, GitHub Models): see RESOURCES.md — mint only until Drive wires them.</p>
+  </div>
+  <div class="panel">
+    <p><a href="https://console.groq.com/">Groq</a> · <a href="https://aistudio.google.com/apikey">Google Ai Studio</a> · <a href="https://openrouter.ai/">OpenRouter</a> · <a href="https://huggingface.co/settings/tokens">Hugging Face</a> · <a href="https://education.github.com/pack">Student Pack</a></p>
   </div>
   <div class="panel">
     <h2>Android</h2>

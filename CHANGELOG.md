@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.11 — 2026-09-12
+
+### Changed
+
+- **RESOURCES.md** is now a step-by-step **Free Student Ai Tokens** guide (use-it-or-lose-them, Workers Ai first, wired hops, Tier-2 mint names, key safety).
+- Exported optional laptop path: [docs/free-llm-api.md](docs/free-llm-api.md) (FreeLLMAPI attribution + student steps).
+- README and live `/resources` point at the new guide.
+
 ## 0.2.10 — 2026-09-10
 
 ### Changed

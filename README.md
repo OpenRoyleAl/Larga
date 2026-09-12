@@ -74,7 +74,7 @@ Season dates / brackets: still being posted on [ROADMAP.md](ROADMAP.md). The tab
 
 | You want | You need | Skip |
 |---|---|---|
-| Free Ai keys only (no tournament) | [RESOURCES.md](RESOURCES.md) | Omarchy, Larga, CloudFlare |
+| Free Student Ai tokens (step-by-step, use-it-or-lose-them) | [RESOURCES.md](RESOURCES.md) · optional laptop `/v1`: [docs/free-llm-api.md](docs/free-llm-api.md) | Omarchy until you want the Cup |
 | A Linux laptop built for this | [Omarchy](https://omarchy.org/) | Larga until you want the Cup |
 | **Enter the Cup** / Board / Tape | Open the live URL **on that phone** | extra keys until Drive 429s |
 | Android terminal | **Termux from [F-Droid](https://f-droid.org/packages/com.termux/)** | Play Store Termux |
@@ -148,7 +148,7 @@ npx wrangler d1 migrations apply larga
 npm run deploy
 ```
 
-When Drive starts 429ing, add keys from [RESOURCES.md](RESOURCES.md) with **`wrangler secret put` only**:
+**Free tokens:** [RESOURCES.md](RESOURCES.md) is the step-by-step guide — Step 0 = shared Cup with **0 keys** (Workers Ai); Step 2 = wired hops via **`wrangler secret put` only**:
 
 ```sh
 npx wrangler secret put GROQ_API_KEY
@@ -156,9 +156,11 @@ npx wrangler secret put OPENROUTER_API_KEY
 npx wrangler secret put GEMINI_API_KEY
 ```
 
-**Safe:** the secret stays on CloudFlare. **Not safe:** pasting a key into Grid, GitHub, Discord, a screenshot, or any file you `git add`. If it leaked, revoke it and mint a new one.
+Quotas nap and reset — **use them or lose them.** Drive hops on 429/5xx/529/empty; **401 stops the hop** so a dead key does not burn the next mint.
 
-More catalogs (verify dates, don’t fork): [Student-free-ai-packs](https://github.com/asbinthapa99/Student-free-ai-packs-) · [FreeLLMAPI](https://github.com/tashfeenahmed/freellmapi) (optional laptop `/v1`, not the Cup).
+**Safe:** secrets stay on CloudFlare. **Not safe:** pasting a key into Grid, GitHub, Discord, a screenshot, or any file you `git add`. Leaked? Revoke and mint new.
+
+Optional laptop router (not the Cup): [docs/free-llm-api.md](docs/free-llm-api.md) · upstream [FreeLLMAPI](https://github.com/tashfeenahmed/freellmapi). Catalogs (verify dates): [Student-free-ai-packs](https://github.com/asbinthapa99/Student-free-ai-packs-).
 
 GitHub has **Copy** on code blocks. Live `/install` and `/resources` have **Copy** too.
 
